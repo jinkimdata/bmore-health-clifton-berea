@@ -8,11 +8,13 @@
 - var datalink = "http://data.baltimoresun.com/PROJECTLINK/"
 - var datalink = ""
 
+include includes/data.pug
+
 doctype html
 //if lt IE 7
 	<html class="no-js lt-ie9 lt-ie8 lt-ie7">
 //if IE 7
-	<html class="no-js lt-ie9 lt-ie8">
+	<html class="no-js lt-ie9 lt-ie8">	
 //if IE 8
 	<html class="no-js lt-ie9">
 html(class="no-js", lang="en")
@@ -24,9 +26,8 @@ html(class="no-js", lang="en")
 		meta(name="author", content="") 
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
 		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Old+Standard+TT|Lato|Montserrat")
-		//- Bootstrap, js below
-		//- link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
 		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css")
+		link(rel="stylesheet", type="text/css", href=datalink + "css/fontello.css")
 
 		//Facebook Stuff
 		meta(property="og:title", content="")
@@ -53,9 +54,47 @@ html(class="no-js", lang="en")
 		include includes/omniture.html
 		
 		.container
-			h1 H1 / MONTSERRAT
-			p P / LATO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec eros ac risus condimentum pretium. In faucibus quis risus sit amet ornare.
-			a(href="" target="_blank") A / LATO / GOLDENROD
+			.headline
+				h1 Baltimore
+					span Neighborhood
+					span Health
+			.navbar
+				ul
+					li
+						button.categoryBtn(data-cat="0")
+							i.icon-users
+							p.categoryBtn__label.categoryBtn__label--0 Demographics
+					li
+						button.categoryBtn(data-cat="1")
+							i.icon-heartbeat
+							p.categoryBtn__label.categoryBtn__label--1 Health
+					li
+						button.categoryBtn(data-cat="2")
+							i.icon-hammer
+							p.categoryBtn__label.categoryBtn__label--2 Safety
+					li
+						button.categoryBtn(data-cat="3")
+							i.icon-money
+							p.categoryBtn__label.categoryBtn__label--3 Socioeconomic
+			.data
+				h2.subhead
+				for category,i in categories
+					if i==0 
+						.category.category--active(class="category--"+i)
+							for variable,j in category
+								if variable != null
+									button.category__vars(data-var=j) 
+										p #{variable}
+					else
+						.category(class="category--"+i)
+							for variable,j in category
+								if variable != null
+									button.category__vars(data-var=j) 
+										p #{variable}
+				.map
+					include includes/neighborhoods.svg
+				.visualization
+
 		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.
 		//- #leaderboard			
 			include includes/ad-for-body.html
@@ -63,8 +102,6 @@ html(class="no-js", lang="en")
 		//Javascript
 		//- MAKE SURE TO CHECK OUT package.json and look at the uglify script. 
 		script(src=datalink + "js/min/jquery-3.0.0.min.js")
-		//- Bootstrap, css above
-		//- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
 		script(src=datalink + "js/app.js")
 		//- script(src=datalink + "js/app.min.js")
 		

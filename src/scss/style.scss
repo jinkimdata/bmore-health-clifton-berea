@@ -8,12 +8,32 @@
 @import "normalize";
 @import "fonts";
 
+$base: $beige-light;
+
+$primary: $m-green;
+$primary-dark: $m-green-dark;
+$primary-light: $m-green-light;
+
+$text-0: $m-black;
+$text-1: white;
+$text-2: $m-gray-dark;
+
+$accent-0: $m-orange;
+
+$shader-0: $m-black;
+$shader-1: $m-gray-dark;
+$shader-2: $m-gray;
+
+
+
 body {
-	color: $offblack;
+	background-color: $base;
+	color: $text-0;
 	font-size: 14px; // body-level font size for "em"-scaled designs
 }
-h1 {
+h1, h2 {	
 	font-family: $montserrat;
+	text-transform: uppercase;
 }
 p,a {
 	font-family: $lato;
@@ -22,10 +42,107 @@ a {
 	color: $goldenrod;
 	text-decoration: none;
 }
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	font-family: inherit;
+	font-size: 1em;
+	cursor: pointer;
+	&:-moz-focus-inner{
+		padding: 0;
+		border: 0;
+	}
+	&:focus {
+		outline: 0;
+	}
+}
 .container {
 	margin-top: 50px; // Pushes below topnav
 }
-
+.headline {
+	width: 100%;
+	background-color: $primary-dark;
+}
+h1 {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: .3em 0;
+	color: $text-1;
+	font-size: 2em;
+	letter-spacing: 3px;
+	line-height: 1.2em;
+	text-align: center;
+	text-shadow: .05em .05em $primary-dark, .1em .1em $primary;
+	span {
+		display: block;
+	}
+}
+.navbar {
+	width: 100%;
+	padding: .5em 0;
+	background-color: $primary;
+	ul {
+		width: 100%;
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 0;
+		list-style-type: none;
+	}
+	li {
+		display: inline-block;
+		width: 24%;
+		padding: .5em 0;
+		text-align: center;		
+		.categoryBtn {
+			&--active {
+				i {
+					color: $accent-0;
+					text-shadow: .1em .1em $primary-dark;
+				}
+			}
+		}
+	}
+	i {
+		color: $primary-light;
+		font-size: 2em;
+		text-shadow: 0px 0px 0px 5px white;
+		@include transition(all .5s ease)
+	}
+	p {
+		display: none;
+		margin: .3em 0 0 0;
+		color: $text-1;
+		font-size: 2.5vmin;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+}
+.data {
+	padding: 0 .75em;
+	h2 {
+		display: none;
+		margin: .5em 0;
+		color: $accent-0;
+		text-align: center;
+	}
+	.category {
+		display: none;
+		&__vars {
+			display: block;
+			width: 100%;
+			color: $text-2;
+			font-family: $lato;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+			p {
+				margin: .5em 0;
+			}
+		}
+	}
+}
 
 /* Leaderboard */
 // #leaderboard {

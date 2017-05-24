@@ -1,12 +1,12 @@
 {
-  "name": "PROJ-NAME-HERE",
+  "name": "bmore-neighborhood-health",
   "version": "1.0.0",
-  "description": "PROJ-NAME-HERE",
+  "description": "bmore-neighborhood-health",
   "main": "index.js",
   "scripts": {
     "pug": "pug  -P -p src/index.pug < src/index.pug > dist/index.html",
     "scss": "node-sass -o dist/css src/scss",
-    "uglify": "mkdir -p dist/js && uglifyjs src/js/*.js -b -o dist/js/app.js && uglifyjs src/js/*.js -m -c -o dist/js/app.min.js",
+    "uglify": "mkdir -p dist/js && uglifyjs src/js/javascript.js -b -o dist/js/app.js && uglifyjs src/js/javascript.js -m -c -o dist/js/min/app.min.js",
     "imagemin": "imagemin src/images/* --out-dir=dist/images/",
     "serve": "browser-sync start --server dist 'dist/css/*.css, dist/js/*.js'",
     "reload": "browser-sync reload --files='dist/*'",
@@ -27,15 +27,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/USERNAME/PROJ-NAME-HERE.git"
+    "url": "git+https://github.com/jinkimdata/bmore-neighborhood-health.git"
   },
   "keywords": ["baltimore sun"],
   "author": "",
   "license": "",
   "bugs": {
-    "url": "https://github.com/USERNAME/PROJ-NAME-HERE/issues"
+    "url": "https://github.com/jinkimdata/bmore-neighborhood-health/issues"
   },
-  "homepage": "https://github.com/USERNAME/PROJ-NAME-HERE#readme",
+  "homepage": "https://github.com/jinkimdata/bmore-neighborhood-health#readme",
   "devDependencies": {
   }
 }

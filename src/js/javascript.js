@@ -1,6 +1,8 @@
-var dataproject = {
+var bmoreHealth = {
 	init: function(){
-		//dataproject.share();
+		bmoreHealth.navigation();
+		bmoreHealth.data();
+		//bmoreHealth.share();
 	},
 	share: function(){
 		$(".icon-twitter").on("click", function(){
@@ -18,48 +20,34 @@ var dataproject = {
 			window.open(facebook_url, 'mywin','left=200,top=200,width=500,height=300,toolbar=1,resizable=0'); return false;
 		});
 	},
-	// This function requires jQuery. It takes two classes as arguments, input as strings with the period in front.
-	// This function takes one vertically scrollable div that includes multiple child divs and "snaps" the scroll
-	// behavior to the nearest child div.
-	// Right now, it is very limited to child divs of this specific style:
-	// width: $widthPct; height: 0; padding-bottom: $widthPct;
-	// Developing this further to have different child divs should not be a trememndous amount of work.
-	// I may get around to that in the near future.
-	scrollSnap: function(scrollDivClass, childDivClass) {
-		var scrollDiv = $(scrollDivClass);
-		var childDivs = $(childDivClass);
-		var childDivWidth = $(childDivs[0]).width();
-		var animating = false;
-		var currDiv, newDiv, currDivPos, newDivPos, divNum;
-		// On window resize, the childDivWidth is recalculated. This is a potentially wasteful and unnecessary function
-		// that I may phase out in the future. It is a soft patch for user resizing behavior.
-		var resizeId;
-		$(window).resize(function(){
-			clearTimeout(resizeId);
-			resizeId = setTimeout(doneResizing, 500);
-		});
-		function doneResizing() {
-			childDivWidth = $(childDivs[0]).width();
-		};
-		// The on scroll function is set on a timeout to help reduce site load.
-		scrollDiv.on('scroll', function() {
-			clearTimeout($.data(this, 'scrollTimer'));
-			if (!animating) {
-				$.data(this, 'scrollTimer', setTimeout(function() {
-					animating = true;
-					divNum = Math.round(scrollDiv.scrollTop() / childDivWidth);
-					scrollDiv.animate({
-						scrollTop: divNum * childDivWidth + 'px'
-					}, 250);
-					setTimeout(function() { animating = false; }, 300);
-					// Insert call to function to run on scroll end here.
-					return false;
-				}, 200));
-			}
+	dataVis: function(){
+	},
+	navigation: function(){
+		var btn;
+		var toCat; // Holds value representing next category 
+		$('.categoryBtn').focus(function() { // On button activation
+
+			btn = $(this);
+			toCat = btn.data('cat');
+
+			$('.categoryBtn--active').toggleClass('categoryBtn--active'); // Remove current active button state
+			btn.addClass('categoryBtn--active'); // Add active state to focused button
+			
+			$('.subhead').fadeOut(250, function() {
+				$('.subhead').text($('.categoryBtn__label--'+toCat).text());
+				$('.subhead').fadeIn(250);
+			});
+
+			$('.category--active').fadeOut(250, function(){
+				$('.category--active').toggleClass('category--active');
+				$('.category--'+toCat).addClass('category--active');
+				$('.category--'+toCat).fadeIn();
+			}); 
+
 		});
 	}
 }
 $(document).ready(function(){
-	dataproject.init();
+	bmoreHealth.init();
 	console.log("connected");
 });

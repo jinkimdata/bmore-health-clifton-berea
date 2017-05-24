@@ -462,11 +462,13 @@ th {
   content: "\e615"; }
 
 body {
-  color: #1e1e1e;
+  background-color: #FFFCF8;
+  color: #212121;
   font-size: 14px; }
 
-h1 {
-  font-family: "Montserrat", sans-serif; }
+h1, h2 {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase; }
 
 p, a {
   font-family: "Lato", sans-serif; }
@@ -475,7 +477,91 @@ a {
   color: #daa520;
   text-decoration: none; }
 
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer; }
+  button:-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+  button:focus {
+    outline: 0; }
+
 .container {
   margin-top: 50px; }
+
+.headline {
+  width: 100%;
+  background-color: #388E3C; }
+
+h1 {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: .3em 0;
+  color: white;
+  font-size: 2em;
+  letter-spacing: 3px;
+  line-height: 1.2em;
+  text-align: center;
+  text-shadow: 0.05em 0.05em #388E3C, 0.1em 0.1em #4CAF50; }
+  h1 span {
+    display: block; }
+
+.navbar {
+  width: 100%;
+  padding: .5em 0;
+  background-color: #4CAF50; }
+  .navbar ul {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none; }
+  .navbar li {
+    display: inline-block;
+    width: 24%;
+    padding: .5em 0;
+    text-align: center; }
+    .navbar li .categoryBtn--active i {
+      color: #FF9800;
+      text-shadow: 0.1em 0.1em #388E3C; }
+  .navbar i {
+    color: #C8E6C9;
+    font-size: 2em;
+    text-shadow: 0px 0px 0px 5px white;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease; }
+  .navbar p {
+    display: none;
+    margin: .3em 0 0 0;
+    color: white;
+    font-size: 2.5vmin;
+    font-weight: bold;
+    text-transform: uppercase; }
+
+.data {
+  padding: 0 .75em; }
+  .data h2 {
+    display: none;
+    margin: .5em 0;
+    color: #FF9800;
+    text-align: center; }
+  .data .category {
+    display: none; }
+    .data .category__vars {
+      display: block;
+      width: 100%;
+      color: #757575;
+      font-family: "Lato", sans-serif;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase; }
+      .data .category__vars p {
+        margin: .5em 0; }
 
 /* Leaderboard */
