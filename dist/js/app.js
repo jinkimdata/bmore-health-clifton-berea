@@ -1,5 +1,6 @@
 var bmoreHealth = {
     init: function() {
+        bmoreHealth.optionsSwap(0);
         bmoreHealth.navigation();
         bmoreHealth.data();
     },
@@ -23,22 +24,29 @@ var bmoreHealth = {
     },
     dataVis: function() {},
     navigation: function() {
-        var btn;
         var toCat;
         $(".categoryBtn").focus(function() {
-            btn = $(this);
-            toCat = btn.data("cat");
+            toCat = $(this).data("cat");
+            bmoreHealth.optionsSwap(toCat);
             $(".categoryBtn--active").toggleClass("categoryBtn--active");
-            btn.addClass("categoryBtn--active");
-            $(".subhead").fadeOut(250, function() {
-                $(".subhead").text($(".categoryBtn__label--" + toCat).text());
-                $(".subhead").fadeIn(250);
-            });
-            $(".category--active").fadeOut(250, function() {
-                $(".category--active").toggleClass("category--active");
-                $(".category--" + toCat).addClass("category--active");
-                $(".category--" + toCat).fadeIn();
-            });
+            $(this).addClass("categoryBtn--active");
+        });
+        var variable;
+        $(".category__vars").focus(function() {
+            variable = $(this).data("var");
+            $(".category__vars--active").toggleClass("category__vars--active");
+            $(this).addClass("category__vars--active");
+        });
+    },
+    optionsSwap: function(toCat) {
+        $(".subhead").fadeOut(250, function() {
+            $(".subhead").text($(".categoryBtn__label--" + toCat).text());
+            $(".subhead").fadeIn(250);
+        });
+        $(".category--active").fadeOut(250, function() {
+            $(".category--active").toggleClass("category--active");
+            $(".category--" + toCat).addClass("category--active");
+            $(".category--" + toCat).fadeIn();
         });
     }
 };

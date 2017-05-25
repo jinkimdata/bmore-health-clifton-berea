@@ -23,6 +23,7 @@ $accent-0: $m-orange;
 $shader-0: $m-black;
 $shader-1: $m-gray-dark;
 $shader-2: $m-gray;
+$shader-9: white;
 
 
 
@@ -122,9 +123,9 @@ h1 {
 .data {
 	padding: 0 .75em;
 	h2 {
-		display: none;
-		margin: .5em 0;
+		margin: .75em 0;
 		color: $accent-0;
+		font-size: 2em;
 		text-align: center;
 	}
 	.category {
@@ -137,8 +138,23 @@ h1 {
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
+			@include transition(color .5s ease)
+			&--active {
+				color: $primary-dark;
+			}
 			p {
 				margin: .5em 0;
+			}
+		}
+	}
+	.map {
+		padding: 1em;
+		svg {
+			width: 100%;
+			.neighborhood {
+				fill: $accent-0;
+				stroke: $base;
+				stroke-width: 2px;
 			}
 		}
 	}

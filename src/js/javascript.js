@@ -1,5 +1,6 @@
 var bmoreHealth = {
 	init: function(){
+		bmoreHealth.optionsSwap(0);
 		bmoreHealth.navigation();
 		bmoreHealth.data();
 		//bmoreHealth.share();
@@ -23,28 +24,32 @@ var bmoreHealth = {
 	dataVis: function(){
 	},
 	navigation: function(){
-		var btn;
 		var toCat; // Holds value representing next category 
 		$('.categoryBtn').focus(function() { // On button activation
-
-			btn = $(this);
-			toCat = btn.data('cat');
-
+			toCat = $(this).data('cat');
+			bmoreHealth.optionsSwap(toCat);
 			$('.categoryBtn--active').toggleClass('categoryBtn--active'); // Remove current active button state
-			btn.addClass('categoryBtn--active'); // Add active state to focused button
-			
-			$('.subhead').fadeOut(250, function() {
-				$('.subhead').text($('.categoryBtn__label--'+toCat).text());
-				$('.subhead').fadeIn(250);
-			});
-
-			$('.category--active').fadeOut(250, function(){
-				$('.category--active').toggleClass('category--active');
-				$('.category--'+toCat).addClass('category--active');
-				$('.category--'+toCat).fadeIn();
-			}); 
-
+			$(this).addClass('categoryBtn--active'); // Add active state to focused button
 		});
+
+		var variable;
+		$('.category__vars').focus(function(){
+			variable = $(this).data('var');
+			$('.category__vars--active').toggleClass('category__vars--active'); // Remove current active button state
+			$(this).addClass('category__vars--active'); // Add active state to focused button
+		});
+	},
+	optionsSwap: function(toCat) {
+		$('.subhead').fadeOut(250, function() {
+			$('.subhead').text($('.categoryBtn__label--'+toCat).text());
+			$('.subhead').fadeIn(250);
+		});
+
+		$('.category--active').fadeOut(250, function(){
+			$('.category--active').toggleClass('category--active');
+			$('.category--'+toCat).addClass('category--active');
+			$('.category--'+toCat).fadeIn();
+		}); 
 	}
 }
 $(document).ready(function(){

@@ -61,7 +61,7 @@ html(class="no-js", lang="en")
 			.navbar
 				ul
 					li
-						button.categoryBtn(data-cat="0")
+						button.categoryBtn.categoryBtn--active(data-cat="0")
 							i.icon-users
 							p.categoryBtn__label.categoryBtn__label--0 Demographics
 					li
@@ -83,16 +83,16 @@ html(class="no-js", lang="en")
 						.category.category--active(class="category--"+i)
 							for variable,j in category
 								if variable != null
-									button.category__vars(data-var=j) 
+									button.category__vars(data-var=i+j) 
 										p #{variable}
 					else
 						.category(class="category--"+i)
 							for variable,j in category
 								if variable != null
-									button.category__vars(data-var=j) 
+									button.category__vars(data-var=i+j) 
 										p #{variable}
 				.map
-					include includes/neighborhoods.svg
+					include includes/bmore-neighborhoods.svg
 				.visualization
 
 		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.

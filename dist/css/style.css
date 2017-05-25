@@ -547,9 +547,9 @@ h1 {
 .data {
   padding: 0 .75em; }
   .data h2 {
-    display: none;
-    margin: .5em 0;
+    margin: .75em 0;
     color: #FF9800;
+    font-size: 2em;
     text-align: center; }
   .data .category {
     display: none; }
@@ -560,8 +560,21 @@ h1 {
       font-family: "Lato", sans-serif;
       font-weight: bold;
       text-align: center;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      -webkit-transition: color 0.5s ease;
+      -moz-transition: color 0.5s ease;
+      transition: color 0.5s ease; }
+      .data .category__vars--active {
+        color: #388E3C; }
       .data .category__vars p {
         margin: .5em 0; }
+  .data .map {
+    padding: 1em; }
+    .data .map svg {
+      width: 100%; }
+      .data .map svg .neighborhood {
+        fill: #FF9800;
+        stroke: #FFFCF8;
+        stroke-width: 2px; }
 
 /* Leaderboard */
