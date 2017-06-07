@@ -370,108 +370,15 @@ td,
 th {
   padding: 0; }
 
-@font-face {
-  font-family: 'icons';
-  src: url("fonts/icons/icons.eot?-3sh89t");
-  src: url("fonts/icons/icons.eot?#iefix-3sh89t") format("embedded-opentype"), url("fonts/icons/icons.woff?-3sh89t") format("woff"), url("fonts/icons/icons.ttf?-3sh89t") format("truetype"), url("fonts/icons/icons.svg?-3sh89t#icons") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-[class^="icon-"], [class*=" icon-"] {
-  font-family: 'icons';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-
-.icon-play:before {
-  content: "\e052"; }
-
-.icon-arrow-left4:before {
-  content: "\e094"; }
-
-.icon-arrow-right4:before {
-  content: "\e095"; }
-
-.icon-arrow-up4:before {
-  content: "\e096"; }
-
-.icon-arrow-down4:before {
-  content: "\e097"; }
-
-.icon-plus:before {
-  content: "\e114"; }
-
-.icon-minus:before {
-  content: "\e115"; }
-
-.icon-close:before {
-  content: "\e117"; }
-
-.icon-menu:before {
-  content: "\e120"; }
-
-.icon-list:before {
-  content: "\e603"; }
-
-.icon-arrow-left:before {
-  content: "\e60a"; }
-
-.icon-arrow-down:before {
-  content: "\e60b"; }
-
-.icon-arrow-up:before {
-  content: "\e60c"; }
-
-.icon-arrow-right:before {
-  content: "\e60d"; }
-
-.icon-arrow-left2:before {
-  content: "\e60e"; }
-
-.icon-arrow-down2:before {
-  content: "\e60f"; }
-
-.icon-arrow-up2:before {
-  content: "\e610"; }
-
-.icon-arrow-right2:before {
-  content: "\e600"; }
-
-.icon-arrow-left3:before {
-  content: "\e611"; }
-
-.icon-arrow-down3:before {
-  content: "\e612"; }
-
-.icon-arrow-up3:before {
-  content: "\e613"; }
-
-.icon-arrow-right3:before {
-  content: "\e601"; }
-
-.icon-twitter:before {
-  content: "\e614"; }
-
-.icon-facebook:before {
-  content: "\e615"; }
-
 body {
   background-color: #FFFCF8;
   color: #212121;
-  font-size: 14px; }
+  font-size: 14px;
+  font-family: "Lato", sans-serif; }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase; }
-
-p, a {
-  font-family: "Lato", sans-serif; }
 
 a {
   color: #daa520;
@@ -545,19 +452,22 @@ h1 {
     text-transform: uppercase; }
 
 .data {
-  padding: 0 .75em; }
+  padding: .75em; }
   .data h2 {
-    margin: .75em 0;
+    margin: .5em 0 0 0;
     color: #FF9800;
     font-size: 2em;
     text-align: center; }
+  .data h3 {
+    text-align: center;
+    margin: 0 0 1em 0;
+    color: #757575; }
   .data .category {
     display: none; }
     .data .category__vars {
       display: block;
       width: 100%;
       color: #757575;
-      font-family: "Lato", sans-serif;
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
@@ -565,7 +475,8 @@ h1 {
       -moz-transition: color 0.5s ease;
       transition: color 0.5s ease; }
       .data .category__vars--active {
-        color: #388E3C; }
+        color: #388E3C;
+        background-color: #C8E6C9; }
       .data .category__vars p {
         margin: .5em 0; }
   .data .map {
@@ -573,8 +484,151 @@ h1 {
     .data .map svg {
       width: 100%; }
       .data .map svg .neighborhood {
-        fill: #FF9800;
+        fill: #388E3C;
+        fill-opacity: .5;
         stroke: #FFFCF8;
         stroke-width: 2px; }
+    .data .map__averageLabel {
+      margin: .5em auto;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      color: #757575; }
+      .data .map__averageLabel span {
+        background-color: #FF9800;
+        color: white;
+        padding: .1em; }
+    .data .map__legend {
+      position: relative;
+      width: 100%;
+      height: 1em;
+      border-radius: 4px;
+      background: #FF9800;
+      background: linear-gradient(to right, rgba(56, 142, 60, 0.1), #388e3c); }
+      .data .map__legend__label {
+        position: absolute;
+        bottom: -1.1em;
+        line-height: 1em;
+        font-weight: bold;
+        color: #757575; }
+        .data .map__legend__label--left {
+          left: 0; }
+        .data .map__legend__label--right {
+          right: 0; }
+      .data .map__legend__average {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 4px;
+        height: 1.5em;
+        background-color: #FF9800;
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        transition: all 0.5s ease; }
+  .data .ranksWrap {
+    display: none; }
+  .data .ranks {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    list-style: none; }
+    .data .ranks--mid {
+      max-height: 75px;
+      overflow: hidden;
+      -webkit-transition: max-height 1s linear;
+      -moz-transition: max-height 1s linear;
+      transition: max-height 1s linear; }
+      .data .ranks--mid.active {
+        max-height: 3000px;
+        -webkit-transition: max-height 3s linear;
+        -moz-transition: max-height 3s linear;
+        transition: max-height 3s linear; }
+    .data .ranks__hood {
+      height: 50px;
+      margin: .5em auto;
+      font-weight: bold;
+      line-height: 0; }
+      .data .ranks__hood__detail {
+        padding: 1em 0; }
+        .data .ranks__hood__detail--num {
+          display: inline-block;
+          width: 25px;
+          height: 48px;
+          margin-right: .3em;
+          padding: 2em 0;
+          color: white;
+          background-color: #388E3C;
+          border-radius: 5px 0 0 5px;
+          text-align: center;
+          float: left; }
+        .data .ranks__hood__detail--name {
+          display: inline-block; }
+        .data .ranks__hood__detail--extra {
+          width: 100%;
+          color: #757575;
+          background-color: #C8E6C9; }
+          .data .ranks__hood__detail--extra p {
+            margin: 0; }
+    .data .ranks__expandBtn {
+      display: table;
+      position: relative;
+      width: 100%;
+      height: 75px;
+      background-color: #FFFCF8;
+      font-weight: bold;
+      text-align: center; }
+      .data .ranks__expandBtn__verticalFix {
+        display: table-cell;
+        cell-width: 100%;
+        height: 75px;
+        vertical-align: middle; }
+      .data .ranks__expandBtn__detail {
+        text-transform: uppercase;
+        margin: .5em auto;
+        background-color: #C8E6C9;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        transition: all 0.5s ease; }
+        .data .ranks__expandBtn__detail--circle {
+          display: block;
+          width: 25px;
+          height: 3px; }
+          .data .ranks__expandBtn__detail--circle.active {
+            width: 15px;
+            height: 15px;
+            border-radius: 99px; }
+        .data .ranks__expandBtn__detail--arrow {
+          display: block;
+          width: 25px;
+          height: 3px; }
+          .data .ranks__expandBtn__detail--arrow.active {
+            width: 0;
+            height: 0;
+            background-color: #FFFCF8;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #C8E6C9; }
+        .data .ranks__expandBtn__detail--main {
+          display: inline-block;
+          width: 175px;
+          padding: .2em 0;
+          background-color: #4CAF50;
+          color: white;
+          border: 1px solid #4CAF50;
+          border-radius: 99px; }
+          .data .ranks__expandBtn__detail--main p {
+            margin: 0; }
+            .data .ranks__expandBtn__detail--main p span {
+              color: #C8E6C9; }
+              .data .ranks__expandBtn__detail--main p span:first-child {
+                color: #212121; }
+          .data .ranks__expandBtn__detail--main.active {
+            background-color: #FFFCF8; }
+            .data .ranks__expandBtn__detail--main.active p span {
+              color: #BDBDBD; }
+              .data .ranks__expandBtn__detail--main.active p span:nth-child(3) {
+                color: #212121; }
 
 /* Leaderboard */

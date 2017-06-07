@@ -6,7 +6,7 @@
 // Base styles -- normalizes styles across browsers. 
 // Alter border-sizing styles to prevent issues in P2P HTML stories
 @import "normalize";
-@import "fonts";
+// @import "fonts";
 
 $base: $beige-light;
 
@@ -30,14 +30,15 @@ $shader-9: white;
 body {
 	background-color: $base;
 	color: $text-0;
-	font-size: 14px; // body-level font size for "em"-scaled designs
+	font-size: 14px; // body-level font size for "em"-scaled designs	
+	font-family: $lato;
 }
-h1, h2 {	
+h1,h2,h3 {	
 	font-family: $montserrat;
 	text-transform: uppercase;
 }
 p,a {
-	font-family: $lato;
+	// font-family: $lato;
 }
 a {
 	color: $goldenrod;
@@ -121,12 +122,17 @@ h1 {
 	}
 }
 .data {
-	padding: 0 .75em;
+	padding: .75em;
 	h2 {
-		margin: .75em 0;
+		margin: .5em 0 0 0;
 		color: $accent-0;
 		font-size: 2em;
 		text-align: center;
+	}
+	h3 {
+		text-align: center;
+		margin: 0 0 1em 0;
+		color: $text-2;
 	}
 	.category {
 		display: none;
@@ -134,13 +140,13 @@ h1 {
 			display: block;
 			width: 100%;
 			color: $text-2;
-			font-family: $lato;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
 			@include transition(color .5s ease)
 			&--active {
 				color: $primary-dark;
+				background-color: $primary-light;
 			}
 			p {
 				margin: .5em 0;
@@ -152,12 +158,187 @@ h1 {
 		svg {
 			width: 100%;
 			.neighborhood {
-				fill: $accent-0;
+				fill: $primary-dark;
+				fill-opacity: .5;
 				stroke: $base;
 				stroke-width: 2px;
 			}
 		}
+		&__averageLabel {
+			margin: .5em auto;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+			color: $text-2;
+			span {
+				background-color: $accent-0;
+				color: $text-1;
+				padding: .1em;
+			}
+		}
+		&__legend {
+			position: relative;
+			width: 100%;
+			height: 1em;
+			// padding: 1em .5em;
+			border-radius: 4px;
+			background: $accent-0;
+			background: linear-gradient(to right, rgba($primary-dark,.1), rgba($primary-dark,1));
+			&__label {
+				position: absolute;
+				bottom: -1.1em;
+				line-height: 1em;
+				font-weight: bold;
+				color: $text-2;
+				&--left {
+					left: 0;
+				}
+				&--right {
+					right: 0;
+				}
+			}
+			&__average {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				width: 4px;
+				height: 1.5em;
+				background-color: $accent-0;
+				border-left: 1px solid $shader-9;
+				border-right: 1px solid $shader-9;
+				@include transition(all .5s ease);
+			}
+		}
 	}
+	.ranksWrap {
+		display: none;
+	}
+	.ranks {
+		// position: relative;
+		margin: 0;
+		padding: 0;
+		font-size: 12px;
+		list-style: none;
+		&--top {
+		}
+		&--mid {
+			max-height: 75px;
+			overflow: hidden;
+			&.active {
+				max-height: 3000px;
+				@include transition(max-height 3s linear);
+			}
+			@include transition(max-height 1s linear);
+		}
+		&--bot {
+		}
+		&__hood {
+			height: 50px;
+			margin: .5em auto;
+			font-weight: bold;
+			line-height: 0;
+			&__detail {
+				padding: 1em 0;
+				&--num {
+					display: inline-block;
+					width: 25px;
+					height: 48px;
+					margin-right: .3em;
+					padding: 2em 0;
+					color: white;
+					background-color: $primary-dark;
+					border-radius: 5px 0 0 5px;
+					text-align: center;
+					float: left;
+				}
+				&--name {
+					display: inline-block;
+				}
+				&--extra {
+					width: 100%;
+					color: $text-2;
+					background-color: $primary-light;
+					p {
+						margin: 0;
+					}
+				}
+			}
+		}
+		&__expandBtn {
+			display: table;
+			position: relative;
+			width: 100%;
+			height: 75px;
+			background-color: $base;
+			font-weight: bold;
+			text-align: center;
+			&__verticalFix {
+				display: table-cell;
+				cell-width: 100%;
+				height: 75px;
+				vertical-align: middle;
+			}
+			&__detail {
+				text-transform: uppercase;
+				margin: .5em auto;
+				background-color: $primary-light;
+				@include transition(all .5s ease)
+				&--circle {
+					display: block;
+					width: 25px;
+					height: 3px;
+					&.active {
+						width: 15px;
+						height: 15px;
+						border-radius: 99px;
+					}
+				}
+				&--arrow {					
+					display: block;
+					width: 25px;
+					height: 3px;
+					&.active {
+						width: 0;
+						height: 0;
+						background-color: $base;
+						border-left: 10px solid transparent;
+						border-right: 10px solid transparent;
+						border-top: 15px solid $primary-light;
+					}
+				}
+				&--main {
+					display: inline-block;
+					width: 175px;
+					padding: .2em 0;
+					background-color: $primary;
+					color: $text-1;
+					border: 1px solid $primary;
+					border-radius: 99px;
+					p {
+						margin: 0;
+						span {
+							color: $primary-light;
+							&:first-child {
+								color: $text-0;
+							}
+						}
+					}
+					&.active {
+						background-color: $base;
+						p {
+							span {
+								color: $shader-2;
+								&:nth-child(3) {
+									color: $text-0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 }
 
 /* Leaderboard */
