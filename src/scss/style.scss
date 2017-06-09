@@ -61,6 +61,7 @@ button {
 	}
 }
 .container {
+	position: relative;
 	margin-top: 50px; // Pushes below topnav
 }
 .headline {
@@ -124,7 +125,7 @@ h1 {
 .data {
 	padding: .75em;
 	h2 {
-		margin: .5em 0 0 0;
+		margin: .3em 0 .5em 0;
 		color: $accent-0;
 		font-size: 2em;
 		text-align: center;
@@ -136,20 +137,28 @@ h1 {
 	}
 	.category {
 		display: none;
-		&__vars {
+		&__var {
 			display: block;
 			width: 100%;
+			max-height: 1em;
+			margin: 1em 0;
+			padding: 0;
+			border-radius: 5px;
 			color: $text-2;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
-			@include transition(color .5s ease)
-			&--active {
-				color: $primary-dark;
-				background-color: $primary-light;
+			list-style-type: none;
+			overflow: hidden;
+			@include transition(all .5s ease)
+			&__subvar {
+
 			}
-			p {
-				margin: .5em 0;
+			&--active {
+				color: $text-0;
+				background-color: $primary-light;
+				max-height: 10em;
+				// @include transition(color .5s ease)
 			}
 		}
 	}
@@ -177,9 +186,9 @@ h1 {
 			}
 		}
 		&__legend {
-			position: relative;
 			width: 100%;
 			height: 1em;
+			position: relative;
 			// padding: 1em .5em;
 			border-radius: 4px;
 			background: $accent-0;
@@ -198,23 +207,26 @@ h1 {
 				}
 			}
 			&__average {
-				position: absolute;
-				bottom: 0;
-				left: 50%;
 				width: 4px;
-				height: 1.5em;
+				height: 2em;
+				position: absolute;
+				bottom: -0.5em;
+				left: 50%;
 				background-color: $accent-0;
 				border-left: 1px solid $shader-9;
 				border-right: 1px solid $shader-9;
-				@include transition(all .5s ease);
+				// @include transition(all .5s ease);
 			}
 		}
 	}
 	.ranksWrap {
 		display: none;
+		margin-top: 3em;
+		h2 {
+			margin: 0;
+		}
 	}
 	.ranks {
-		// position: relative;
 		margin: 0;
 		padding: 0;
 		font-size: 12px;
@@ -222,7 +234,7 @@ h1 {
 		&--top {
 		}
 		&--mid {
-			max-height: 75px;
+			max-height: 0;
 			overflow: hidden;
 			&.active {
 				max-height: 3000px;
@@ -246,29 +258,42 @@ h1 {
 					margin-right: .3em;
 					padding: 2em 0;
 					color: white;
-					background-color: $primary-dark;
+					background-color: $primary;
 					border-radius: 5px 0 0 5px;
 					text-align: center;
 					float: left;
 				}
 				&--name {
-					display: inline-block;
 				}
 				&--extra {
 					width: 100%;
+					border-radius: 5px;
 					color: $text-2;
 					background-color: $primary-light;
+					text-transform: uppercase;
 					p {
+						display: inline-block;
 						margin: 0;
+					}
+					span {
+						color: $text-0;
+					}
+					i {
+						display: inline-block;
+						font-size: 1.4em;
+						float: right;
+						cursor: pointer;
+						&:before {
+							line-height: 0;
+						}
 					}
 				}
 			}
 		}
 		&__expandBtn {
 			display: table;
-			position: relative;
 			width: 100%;
-			height: 75px;
+			position: relative;
 			background-color: $base;
 			font-weight: bold;
 			text-align: center;
@@ -279,9 +304,10 @@ h1 {
 				vertical-align: middle;
 			}
 			&__detail {
-				text-transform: uppercase;
 				margin: .5em auto;
 				background-color: $primary-light;
+				font-size: 14px;
+				text-transform: uppercase;
 				@include transition(all .5s ease)
 				&--circle {
 					display: block;
@@ -328,7 +354,7 @@ h1 {
 						p {
 							span {
 								color: $shader-2;
-								&:nth-child(3) {
+								&:last-child {
 									color: $text-0;
 								}
 							}
@@ -338,7 +364,64 @@ h1 {
 			}
 		}
 	}
-	
+}
+.overlay {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding-top: 50px;
+	background-color: $base;
+	z-index: 9999999999;
+	&__closeBtn {
+		position: absolute;
+		top: .5em;
+		right: .5em;
+		color: $accent-0;
+		cursor: pointer;
+		text-transform: uppercase;
+		i {
+			font-size: 3em;
+		}
+	}
+	&__neighborhoodName {
+		width: 100%;
+		margin: 2em auto 1em auto;
+		padding: 0 1.5em;
+		h2 {
+			position: relative;
+			margin: 0;
+			color: $text-1;
+			background-color: $primary;
+			border-radius: 5px;
+			padding: .5em;
+			text-align: center;
+			&:after {				
+				content: "";
+				position: absolute;
+				top: 100%; /* At the bottom of the tooltip */
+				left: 50%;
+				margin-left: -.75em;
+				border-width: .75em;
+				border-style: solid;
+				border-color: $primary transparent transparent transparent;
+			}
+		}
+	}
+	&__mapWrapper {
+		background-color: white;
+		padding: 1.5em;
+		svg {
+			width: 100%;
+			.neighborhood {
+				fill: $shader-2;
+				stroke: $base;
+				stroke-width: 2px;
+			}
+		}
+	}
 }
 
 /* Leaderboard */

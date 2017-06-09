@@ -5,10 +5,8 @@
 //- There are two datalink variables so I don't have to rewrite the link every time. 
 //- The second datalink variable declaration overwrites the first one. 
 //- When I want to switch to my server assets, I comment out the second declaration.
-- var datalink = "http://data.baltimoresun.com/PROJECTLINK/"
+- var datalink = "http://data.baltimoresun.com/jin/test/bmore-health/"
 - var datalink = ""
-
-- var counter = 0
 
 include includes/data.pug
 
@@ -80,19 +78,33 @@ html(class="no-js", lang="en")
 							p.categoryBtn__label.categoryBtn__label--3 Socioeconomic
 			.data
 				h2.subhead
+				- var counter = 0
 				for category,i in categories
-					if i==0 
+					//- if i==0 
+					//- 	.category.category--active(class="category--"+i)
+					//- 		for variable,j in category
+					//- 			if variable != null
+					//- 				button.category__var(data-var=counter++) 
+					//- 					p #{variable}
+					//- else
+					//- 	.category(class="category--"+i)
+					//- 		for variable,j in category
+					//- 			if variable != null
+					//- 				button.category__var(data-var=counter++) 
+					//- 					p #{variable}
+					if i==0
 						.category.category--active(class="category--"+i)
-							for variable,j in category
-								if variable != null
-									button.category__vars(data-var=counter++) 
-										p #{variable}
+							for subcat,j in category
+								if subcat.subcat0 == ""
+									.category__var.dataJSTrigger(data-var=counter++) #{subcat.cat}
+								else
+									ul.category__var #{subcat.cat}
+										for variable,k in subcat
+											if k != "cat" && variable != ""
+												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
 					else
-						.category(class="category--"+i)
-							for variable,j in category
-								if variable != null
-									button.category__vars(data-var=counter++) 
-										p #{variable}
+
+
 				.map
 					include includes/bmore-neighborhoods.svg
 					.map__averageLabel City AVG: 
@@ -110,35 +122,43 @@ html(class="no-js", lang="en")
 						while i < 5
 							li.ranks__hood(class="ranks__hood--" + i)
 								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
-								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__name--" + i) - - -
-								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__extra--" + i++)
-									p - - -
-									i.icon
+								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__detail--name--" + i) - - -
+								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__detail--extra--" + i)
+									p Stat: 
+										span - - -
+									i.icon-location(data-ranknum=i++)
+					.ranks__expandBtn
+						.ranks__expandBtn__verticalFix
+							.ranks__expandBtn__detail.ranks__expandBtn__detail--circle
+							button.ranks__expandBtn__detail.ranks__expandBtn__detail--main
+								p
+									span Expand
+									span  / 
+									span Collapse
+							.ranks__expandBtn__detail.ranks__expandBtn__detail--arrow
 					ul.ranks.ranks--mid
+						while i >= 5 && i < 55
+							li.ranks__hood(class="ranks__hood--" + i)
+								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
+								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__detail--name--" + i) - - -
+								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__detail--extra--" + i)
+									p Stat: 
+										span - - -
+									i.icon-location(data-ranknum=i++)
 						.ranks__expandBtn
 							.ranks__expandBtn__verticalFix
 								.ranks__expandBtn__detail.ranks__expandBtn__detail--circle
-								button.ranks__expandBtn__detail.ranks__expandBtn__detail--main 
-									p 
-										span Expand 
-										span / 
+								button.ranks__expandBtn__detail.ranks__expandBtn__detail--main
+									p
 										span Collapse
-								.ranks__expandBtn__detail.ranks__expandBtn__detail--arrow
-						while i >= 5 && i < 55
-							li.ranks__hood(class="ranks__hood--" + i)
-								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
-								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__name--" + i) - - -
-								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__extra--" + i++)
-									p - - -
-									i.icon
-					//- ul.ranks.ranks--bot5
-						while i >= 5 && i < 55
-							li.ranks__hood(class="ranks__hood--" + i)
-								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
-								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__name--" + i) - - -
-								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__extra--" + i++)
-									p - - -
-									i.icon
+			.overlay
+				.overlay__closeBtn
+					i.icon-cancel-circled
+				.overlay__neighborhoodName
+					h2 test hood plz ignore
+				.overlay__mapWrapper
+					include includes/bmore-neighborhoods.svg
+
 
 		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.
 		//- #leaderboard			

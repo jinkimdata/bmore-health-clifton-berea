@@ -399,6 +399,7 @@ button {
     outline: 0; }
 
 .container {
+  position: relative;
   margin-top: 50px; }
 
 .headline {
@@ -454,7 +455,7 @@ h1 {
 .data {
   padding: .75em; }
   .data h2 {
-    margin: .5em 0 0 0;
+    margin: .3em 0 .5em 0;
     color: #FF9800;
     font-size: 2em;
     text-align: center; }
@@ -464,21 +465,26 @@ h1 {
     color: #757575; }
   .data .category {
     display: none; }
-    .data .category__vars {
+    .data .category__var {
       display: block;
       width: 100%;
+      max-height: 1em;
+      margin: 1em 0;
+      padding: 0;
+      border-radius: 5px;
       color: #757575;
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
-      -webkit-transition: color 0.5s ease;
-      -moz-transition: color 0.5s ease;
-      transition: color 0.5s ease; }
-      .data .category__vars--active {
-        color: #388E3C;
-        background-color: #C8E6C9; }
-      .data .category__vars p {
-        margin: .5em 0; }
+      list-style-type: none;
+      overflow: hidden;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      transition: all 0.5s ease; }
+      .data .category__var--active {
+        color: #212121;
+        background-color: #C8E6C9;
+        max-height: 10em; }
   .data .map {
     padding: 1em; }
     .data .map svg {
@@ -499,9 +505,9 @@ h1 {
         color: white;
         padding: .1em; }
     .data .map__legend {
-      position: relative;
       width: 100%;
       height: 1em;
+      position: relative;
       border-radius: 4px;
       background: #FF9800;
       background: linear-gradient(to right, rgba(56, 142, 60, 0.1), #388e3c); }
@@ -516,26 +522,26 @@ h1 {
         .data .map__legend__label--right {
           right: 0; }
       .data .map__legend__average {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
         width: 4px;
-        height: 1.5em;
+        height: 2em;
+        position: absolute;
+        bottom: -0.5em;
+        left: 50%;
         background-color: #FF9800;
         border-left: 1px solid white;
-        border-right: 1px solid white;
-        -webkit-transition: all 0.5s ease;
-        -moz-transition: all 0.5s ease;
-        transition: all 0.5s ease; }
+        border-right: 1px solid white; }
   .data .ranksWrap {
-    display: none; }
+    display: none;
+    margin-top: 3em; }
+    .data .ranksWrap h2 {
+      margin: 0; }
   .data .ranks {
     margin: 0;
     padding: 0;
     font-size: 12px;
     list-style: none; }
     .data .ranks--mid {
-      max-height: 75px;
+      max-height: 0;
       overflow: hidden;
       -webkit-transition: max-height 1s linear;
       -moz-transition: max-height 1s linear;
@@ -559,23 +565,32 @@ h1 {
           margin-right: .3em;
           padding: 2em 0;
           color: white;
-          background-color: #388E3C;
+          background-color: #4CAF50;
           border-radius: 5px 0 0 5px;
           text-align: center;
           float: left; }
-        .data .ranks__hood__detail--name {
-          display: inline-block; }
         .data .ranks__hood__detail--extra {
           width: 100%;
+          border-radius: 5px;
           color: #757575;
-          background-color: #C8E6C9; }
+          background-color: #C8E6C9;
+          text-transform: uppercase; }
           .data .ranks__hood__detail--extra p {
+            display: inline-block;
             margin: 0; }
+          .data .ranks__hood__detail--extra span {
+            color: #212121; }
+          .data .ranks__hood__detail--extra i {
+            display: inline-block;
+            font-size: 1.4em;
+            float: right;
+            cursor: pointer; }
+            .data .ranks__hood__detail--extra i:before {
+              line-height: 0; }
     .data .ranks__expandBtn {
       display: table;
-      position: relative;
       width: 100%;
-      height: 75px;
+      position: relative;
       background-color: #FFFCF8;
       font-weight: bold;
       text-align: center; }
@@ -585,9 +600,10 @@ h1 {
         height: 75px;
         vertical-align: middle; }
       .data .ranks__expandBtn__detail {
-        text-transform: uppercase;
         margin: .5em auto;
         background-color: #C8E6C9;
+        font-size: 14px;
+        text-transform: uppercase;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         transition: all 0.5s ease; }
@@ -628,7 +644,58 @@ h1 {
             background-color: #FFFCF8; }
             .data .ranks__expandBtn__detail--main.active p span {
               color: #BDBDBD; }
-              .data .ranks__expandBtn__detail--main.active p span:nth-child(3) {
+              .data .ranks__expandBtn__detail--main.active p span:last-child {
                 color: #212121; }
+
+.overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+  background-color: #FFFCF8;
+  z-index: 9999999999; }
+  .overlay__closeBtn {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    color: #FF9800;
+    cursor: pointer;
+    text-transform: uppercase; }
+    .overlay__closeBtn i {
+      font-size: 3em; }
+  .overlay__neighborhoodName {
+    width: 100%;
+    margin: 2em auto 1em auto;
+    padding: 0 1.5em; }
+    .overlay__neighborhoodName h2 {
+      position: relative;
+      margin: 0;
+      color: white;
+      background-color: #4CAF50;
+      border-radius: 5px;
+      padding: .5em;
+      text-align: center; }
+      .overlay__neighborhoodName h2:after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        /* At the bottom of the tooltip */
+        left: 50%;
+        margin-left: -.75em;
+        border-width: .75em;
+        border-style: solid;
+        border-color: #4CAF50 transparent transparent transparent; }
+  .overlay__mapWrapper {
+    background-color: white;
+    padding: 1.5em; }
+    .overlay__mapWrapper svg {
+      width: 100%; }
+      .overlay__mapWrapper svg .neighborhood {
+        fill: #BDBDBD;
+        stroke: #FFFCF8;
+        stroke-width: 2px; }
 
 /* Leaderboard */
