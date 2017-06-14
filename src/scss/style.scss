@@ -141,7 +141,7 @@ h1 {
 			display: block;
 			width: 100%;
 			max-height: 1em;
-			margin: 1em 0;
+			margin: .75em 0;
 			padding: 0;
 			border-radius: 5px;
 			color: $text-2;
@@ -150,14 +150,21 @@ h1 {
 			text-transform: uppercase;
 			list-style-type: none;
 			overflow: hidden;
+			cursor: pointer;
 			@include transition(all .5s ease)
-			&__subvar {
-
-			}
 			&--active {
-				color: $text-0;
-				background-color: $primary-light;
 				max-height: 10em;
+				color: $text-0;
+			}
+			&--singleitem {
+				max-height: 10em;
+			}
+			&__subvar {
+				border-radius: 5px;
+				// cursor: pointer;
+				&--active {
+					background-color: $primary-light;
+				}
 				// @include transition(color .5s ease)
 			}
 		}
@@ -182,7 +189,7 @@ h1 {
 			span {
 				background-color: $accent-0;
 				color: $text-1;
-				padding: .1em;
+				padding: .1em .5em;
 			}
 		}
 		&__legend {

@@ -80,31 +80,40 @@ html(class="no-js", lang="en")
 				h2.subhead
 				- var counter = 0
 				for category,i in categories
-					//- if i==0 
-					//- 	.category.category--active(class="category--"+i)
-					//- 		for variable,j in category
-					//- 			if variable != null
-					//- 				button.category__var(data-var=counter++) 
-					//- 					p #{variable}
-					//- else
-					//- 	.category(class="category--"+i)
-					//- 		for variable,j in category
-					//- 			if variable != null
-					//- 				button.category__var(data-var=counter++) 
-					//- 					p #{variable}
 					if i==0
 						.category.category--active(class="category--"+i)
 							for subcat,j in category
-								if subcat.subcat0 == ""
-									.category__var.dataJSTrigger(data-var=counter++) #{subcat.cat}
+								if subcat.subcat0 == null
+									ul.category__var.category__var--singleitem
+										li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
 								else
 									ul.category__var #{subcat.cat}
 										for variable,k in subcat
-											if k != "cat" && variable != ""
+											if k != "cat" && variable != null
 												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
 					else
+						.category(class="category--"+i)
+							for subcat,j in category
+								if subcat.subcat0 == null
+									ul.category__var.category__var--singleitem
+										li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
+								else
+									ul.category__var #{subcat.cat}
+										for variable,k in subcat
+											if k != "cat" && variable != null
+												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
 
-
+					//- else
+					//- 	.category(class="category--"+i)
+					//- 		for subcat,j in category
+					//- 			if subcat.subcat0 == null
+					//- 				ul.category__var.category__var--singleitem
+					//- 					li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
+					//- 			else
+					//- 				ul.category__var #{subcat.cat}
+					//- 					for variable,k in subcat
+					//- 						if k != "cat" && variable != ""
+					//- 							li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
 				.map
 					include includes/bmore-neighborhoods.svg
 					.map__averageLabel City AVG: 
