@@ -70,12 +70,12 @@ html(class="no-js", lang="en")
 							p.categoryBtn__label.categoryBtn__label--1 Health
 					li
 						button.categoryBtn(data-cat="2")
-							i.icon-hammer
-							p.categoryBtn__label.categoryBtn__label--2 Safety
+							i.icon-money
+							p.categoryBtn__label.categoryBtn__label--2 Socioeconomic
 					li
 						button.categoryBtn(data-cat="3")
-							i.icon-money
-							p.categoryBtn__label.categoryBtn__label--3 Socioeconomic
+							i.icon-hammer
+							p.categoryBtn__label.categoryBtn__label--3 Safety
 			.data
 				h2.subhead
 				- var counter = 0
@@ -102,18 +102,6 @@ html(class="no-js", lang="en")
 										for variable,k in subcat
 											if k != "cat" && variable != null
 												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
-
-					//- else
-					//- 	.category(class="category--"+i)
-					//- 		for subcat,j in category
-					//- 			if subcat.subcat0 == null
-					//- 				ul.category__var.category__var--singleitem
-					//- 					li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
-					//- 			else
-					//- 				ul.category__var #{subcat.cat}
-					//- 					for variable,k in subcat
-					//- 						if k != "cat" && variable != ""
-					//- 							li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
 				.map
 					include includes/bmore-neighborhoods.svg
 					.map__averageLabel City AVG: 
