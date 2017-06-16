@@ -25,8 +25,8 @@ html(class="no-js", lang="en")
 		meta(name="description", content="")
 		meta(name="author", content="") 
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
-		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Old+Standard+TT|Lato|Montserrat")
-		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css")
+		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Lato|PT+Sans|Montserrat|Old+Standard+TT")
+		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?616e")
 		link(rel="stylesheet", type="text/css", href=datalink + "css/fontello.css")
 
 		//Facebook Stuff
@@ -112,6 +112,13 @@ html(class="no-js", lang="en")
 						.map__legend__label.map__legend__label--right 
 				.visualization
 				.ranksWrap
+					ul.ranks.ranks--highlight
+						li.ranks__hood
+							.ranks__hood__detail.ranks__hood__detail--num
+							.ranks__hood__detail.ranks__hood__detail--name
+							.ranks__hood__detail.ranks__hood__detail--extra
+								p Stat: 
+									span - - -
 					h2 Ranking
 					h3.rankCategory
 					- var i = 0
@@ -134,7 +141,7 @@ html(class="no-js", lang="en")
 									span Collapse
 							.ranks__expandBtn__detail.ranks__expandBtn__detail--arrow
 					ul.ranks.ranks--mid
-						while i >= 5 && i < 55
+						while i >= 5 && i < 50
 							li.ranks__hood(class="ranks__hood--" + i)
 								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
 								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__detail--name--" + i) - - -
@@ -142,12 +149,20 @@ html(class="no-js", lang="en")
 									p Stat: 
 										span - - -
 									i.icon-location(data-ranknum=i++)
-						.ranks__expandBtn
-							.ranks__expandBtn__verticalFix
-								.ranks__expandBtn__detail.ranks__expandBtn__detail--circle
-								button.ranks__expandBtn__detail.ranks__expandBtn__detail--main
-									p
-										span Collapse
+						//- .ranks__expandBtn
+						//- 	.ranks__expandBtn__verticalFix
+						//- 		button.ranks__expandBtn__detail.ranks__expandBtn__detail--main
+						//- 			p
+						//- 				span Collapse
+					ul.ranks.ranks--bot
+						while i >= 50 && i < 55
+							li.ranks__hood(class="ranks__hood--" + i)
+								.ranks__hood__detail.ranks__hood__detail--num #{i+1}
+								.ranks__hood__detail.ranks__hood__detail--name(class="ranks__hood__detail--name--" + i) - - -
+								.ranks__hood__detail.ranks__hood__detail--extra(class="ranks__hood__detail--extra--" + i)
+									p Stat: 
+										span - - -
+									i.icon-location(data-ranknum=i++)
 			.overlay
 				.overlay__closeBtn
 					i.icon-cancel-circled
@@ -166,6 +181,6 @@ html(class="no-js", lang="en")
 		script(src=datalink + "js/min/jquery-3.0.0.min.js")
 		//- script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js")
-		script(src=datalink + "js/app.js")
+		script(src=datalink + "js/app.js?616e")
 		//- script(src=datalink + "js/app.min.js")
 		
