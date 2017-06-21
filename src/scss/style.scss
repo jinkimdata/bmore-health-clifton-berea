@@ -207,6 +207,9 @@ h1 {
 			overflow: hidden;
 			cursor: pointer;
 			@include transition(all .5s ease)
+			p {
+				margin: 0;
+			}
 			&--active {
 				max-height: 10em;
 				background-color: lighten($primary-light, 10);
@@ -216,12 +219,16 @@ h1 {
 				max-height: 10em;
 				border-radius: 5px;
 				border: none;
+				.category__var__subvar {
+					margin-left: 0;
+				}
 			}
 			@media(min-width: 768px) {
 				text-align: left;
 			}
 			&__subvar {
 				border-radius: 5px;
+				margin-left: .5em;
 				// cursor: pointer;
 				@include transition(all .5s ease)
 				&--active {
@@ -256,7 +263,7 @@ h1 {
 				cursor: pointer;
 				&--highlight {
 					fill: $accent-0;
-					fill-opacity: 1;
+					fill-opacity: 1!important;
 				}
 			}
 		}
@@ -511,70 +518,70 @@ h1 {
 
 	}
 }
-.overlay {
-	display: none;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding-top: 50px;
-	background-color: $base;
-	z-index: 9999999999;
-	overflow: auto;
-	&__closeBtn {
-		position: absolute;
-		top: .5em;
-		right: .5em;
-		color: $accent-0;
-		cursor: pointer;
-		text-transform: uppercase;
-		i {
-			font-size: 3em;
-		}
-	}
-	&__neighborhoodName {
-		width: 100%;
-		margin: 2em auto 1em auto;
-		padding: 0 1.5em;
-		h2 {
-			position: relative;
-			max-width: 400px;
-			margin: 0 auto;
-			color: $text-1;
-			background-color: $primary;
-			border-radius: 5px;
-			padding: .5em;
-			text-align: center;
-			&:after {				
-				content: "";
-				position: absolute;
-				top: 100%; /* At the bottom of the tooltip */
-				left: 50%;
-				margin-left: -.75em;
-				border-width: .75em;
-				border-style: solid;
-				border-color: $primary transparent transparent transparent;
-			}
-		}
-	}
-	&__mapWrapper {
-		background-color: white;
-		padding: 1.5em;
-		text-align: center;
-		svg {
-			width: 100%;
-			@media(min-width: 400px) {
-				max-width: 400px;
-			}
-			.neighborhood {
-				fill: $shader-2;
-				stroke: $base;
-				stroke-width: 2px;
-			}
-		}
-	}
-}
+// .overlay {
+// 	display: none;
+// 	width: 100%;
+// 	height: 100%;
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	padding-top: 50px;
+// 	background-color: $base;
+// 	z-index: 9999999999;
+// 	overflow: auto;
+// 	&__closeBtn {
+// 		position: absolute;
+// 		top: .5em;
+// 		right: .5em;
+// 		color: $accent-0;
+// 		cursor: pointer;
+// 		text-transform: uppercase;
+// 		i {
+// 			font-size: 3em;
+// 		}
+// 	}
+// 	&__neighborhoodName {
+// 		width: 100%;
+// 		margin: 2em auto 1em auto;
+// 		padding: 0 1.5em;
+// 		h2 {
+// 			position: relative;
+// 			max-width: 400px;
+// 			margin: 0 auto;
+// 			color: $text-1;
+// 			background-color: $primary;
+// 			border-radius: 5px;
+// 			padding: .5em;
+// 			text-align: center;
+// 			&:after {				
+// 				content: "";
+// 				position: absolute;
+// 				top: 100%; /* At the bottom of the tooltip */
+// 				left: 50%;
+// 				margin-left: -.75em;
+// 				border-width: .75em;
+// 				border-style: solid;
+// 				border-color: $primary transparent transparent transparent;
+// 			}
+// 		}
+// 	}
+// 	&__mapWrapper {
+// 		background-color: white;
+// 		padding: 1.5em;
+// 		text-align: center;
+// 		svg {
+// 			width: 100%;
+// 			@media(min-width: 400px) {
+// 				max-width: 400px;
+// 			}
+// 			.neighborhood {
+// 				fill: $shader-2;
+// 				stroke: $base;
+// 				stroke-width: 2px;
+// 			}
+// 		}
+// 	}
+// }
 
 /* Leaderboard */
 // #leaderboard {

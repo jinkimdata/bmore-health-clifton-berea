@@ -30,11 +30,12 @@ var bmoreHealth = {
         var rankOrder;
         var highlightHood;
         var rankNum, hoodNum;
-        var currVar;
+        var currVar = 13;
         var prefix = "";
         var suffix = "";
         var map = d3.select(".mapSVG");
         var mapHoods = map.selectAll("g").select("path");
+        populateData(currVar);
         $(".category__var__subvar").on("click", function() {
             $(".category__var__subvar--active").toggleClass("category__var__subvar--active");
             $(this).addClass("category__var__subvar--active");
@@ -67,21 +68,26 @@ var bmoreHealth = {
         }).on("click", function() {
             $(".ranks--highlight").fadeIn();
             highlightHood = $(this).data("id");
-            $(".neighborhood--highlight").removeClass("neighborhood--highlight");
-            $(this).addClass("neighborhood--highlight");
+            if ($(this).hasClass("neighborhood--highlight")) {
+                $(".neighborhood--highlight").removeClass("neighborhood--highlight");
+                $(".ranks--highlight").fadeOut();
+            } else {
+                $(".neighborhood--highlight").removeClass("neighborhood--highlight");
+                $(this).addClass("neighborhood--highlight");
+                $(".ranks--highlight").fadeIn();
+            }
             populateData(currVar);
             return false;
         });
         $(".icon-location").on("click", function() {
             rankNum = $(this).data("ranknum");
-            hoodNum = rankOrder[rankNum].id;
-            $(".overlay__neighborhoodName h2").text($(".ranks__hood__detail--name--" + rankNum).text());
-            d3.select(".overlay").select(".neighborhood--" + hoodNum).style("fill", "#388E3C");
-            $(".overlay").fadeIn();
-        });
-        $(".overlay").on("click", function() {
-            d3.select(".overlay").select(".neighborhood--" + hoodNum).style("fill", "#BDBDBD");
-            $(this).fadeOut();
+            highlightHood = rankOrder[rankNum].id;
+            $(".neighborhood--highlight").removeClass("neighborhood--highlight");
+            $(".neighborhood--" + highlightHood).addClass("neighborhood--highlight");
+            $("body").animate({
+                scrollTop: $(".data").position().top
+            });
+            populateData(currVar);
         });
         function populateData(variable) {
             rankOrder = [ {
@@ -363,12 +369,14 @@ var bmoreHealth = {
             $(".ranks.ranks--mid").toggleClass("active");
             $(".ranks__expandBtn__detail").toggleClass("active");
         });
-        $(".category__var").on("click", function() {
-            $(".category__var--active").toggleClass("category__var--active");
-            $(this).addClass("category__var--active");
+        $(".category__var p").on("click", function() {
+            $(this).parent().toggleClass("category__var--active");
         });
         $(".category__var__subvar").one("click", function() {
             $(".ranksWrap").fadeIn();
+        });
+        $(".icon-location").on("click", function() {
+            $(".ranks--highlight").fadeIn();
         });
     },
     optionsSwap: function(toCat) {

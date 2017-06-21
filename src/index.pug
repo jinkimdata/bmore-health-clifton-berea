@@ -26,7 +26,7 @@ html(class="no-js", lang="en")
 		meta(name="author", content="") 
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
 		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Lato|PT+Sans|Montserrat|Old+Standard+TT")
-		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?619a")
+		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?621d")
 		link(rel="stylesheet", type="text/css", href=datalink + "css/fontello.css")
 
 		//Facebook Stuff
@@ -87,10 +87,15 @@ html(class="no-js", lang="en")
 								| Select a category below to explore city statistics
 							for subcat,j in category
 								if subcat.subcat0 == null
-									ul.category__var.category__var--singleitem
-										li.category__var__subvar(data-var=counter++) #{subcat.cat}
+									if (counter == 13)
+										ul.category__var.category__var--singleitem
+											li.category__var__subvar.category__var__subvar--active(data-var=counter++) #{subcat.cat}
+									else
+										ul.category__var.category__var--singleitem
+											li.category__var__subvar(data-var=counter++) #{subcat.cat}
 								else
-									ul.category__var #{subcat.cat}
+									ul.category__var
+										p #{subcat.cat}
 										for variable,k in subcat
 											if k != "cat" && variable != null
 												li.category__var__subvar(data-var=counter++) #{variable}
@@ -130,7 +135,7 @@ html(class="no-js", lang="en")
 				.visualization
 				.ranksWrap
 					h2 Neighborhood rankings
-					h3.rankCategory
+					h3.rankCategory % of childen living in single parent households
 					- var i = 0
 					ul.ranks.ranks--top5
 						while i < 5
@@ -173,13 +178,13 @@ html(class="no-js", lang="en")
 									p Stat: 
 										span - - -
 									i.icon-location(data-ranknum=i++)
-			.overlay
-				.overlay__closeBtn
-					i.icon-cancel-circled
-				.overlay__neighborhoodName
-					h2 test hood plz ignore
-				.overlay__mapWrapper
-					include includes/bmore-neighborhoods.svg
+			//- .overlay
+			//- 	.overlay__closeBtn
+			//- 		i.icon-cancel-circled
+			//- 	.overlay__neighborhoodName
+			//- 		h2 test hood plz ignore
+			//- 	.overlay__mapWrapper
+			//- 		include includes/bmore-neighborhoods.svg
 
 
 		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.
@@ -191,6 +196,6 @@ html(class="no-js", lang="en")
 		script(src=datalink + "js/min/jquery-3.0.0.min.js")
 		//- script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js")
-		script(src=datalink + "js/app.js?619a")
+		script(src=datalink + "js/app.js?621d")
 		//- script(src=datalink + "js/app.min.js")
 		

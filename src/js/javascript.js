@@ -29,13 +29,13 @@ var bmoreHealth = {
 		var rankOrder;
 		var highlightHood;
 		var rankNum, hoodNum;
-		var currVar;
+		var currVar = 13;
 		var prefix = "";
 		var suffix = "";
 		var map = d3.select('.mapSVG');
 		var mapHoods = map.selectAll('g').select('path');
 
-		// populateData(0);
+		populateData(currVar);
 
 		$('.category__var__subvar').on('click', function(){
 			$('.category__var__subvar--active').toggleClass('category__var__subvar--active');
@@ -80,23 +80,24 @@ var bmoreHealth = {
 			.on('click',function(){
 				$('.ranks--highlight').fadeIn();
 				highlightHood = $(this).data('id');
-				$('.neighborhood--highlight').removeClass('neighborhood--highlight');
-				$(this).addClass('neighborhood--highlight');
+				if($(this).hasClass('neighborhood--highlight')) {
+					$('.neighborhood--highlight').removeClass('neighborhood--highlight');
+					$('.ranks--highlight').fadeOut();
+				} else {
+					$('.neighborhood--highlight').removeClass('neighborhood--highlight');
+					$(this).addClass('neighborhood--highlight');
+					$('.ranks--highlight').fadeIn();
+				};
 				populateData(currVar);
 				return false;
 			});
 		$('.icon-location').on('click', function(){
 			rankNum = $(this).data('ranknum');
-			hoodNum = rankOrder[rankNum].id;
-			$('.overlay__neighborhoodName h2').text(
-				$('.ranks__hood__detail--name--'+rankNum).text()
-			);
-			d3.select('.overlay').select('.neighborhood--'+hoodNum).style('fill','#388E3C');
-			$('.overlay').fadeIn();
-		});		
-		$('.overlay').on('click', function(){
-			d3.select('.overlay').select('.neighborhood--'+hoodNum).style('fill','#BDBDBD');
-			$(this).fadeOut();
+			highlightHood = rankOrder[rankNum].id;
+			$('.neighborhood--highlight').removeClass('neighborhood--highlight');
+			$('.neighborhood--'+highlightHood).addClass('neighborhood--highlight');
+			$('body').animate({scrollTop:$('.data').position().top});
+			populateData(currVar);
 		});
 		function populateData(variable){
 			rankOrder = [{"id":0,"value":"","name":"Allendale / Irvington / S. Hilton"},{"id":1,"value":"","name":"Beechfield / Ten Hills / West Hills"},{"id":2,"value":"","name":"Belair-Edison"},{"id":3,"value":"","name":"Brooklyn / Curtis Bay / Hawkins Point"},{"id":4,"value":"","name":"Canton"},{"id":5,"value":"","name":"Cedonia / Frankford"},{"id":6,"value":"","name":"Cherry Hill"},{"id":7,"value":"","name":"Chinquapin Park / Belvedere"},{"id":8,"value":"","name":"Claremont / Armistead"},{"id":9,"value":"","name":"Clifton-Berea"},{"id":10,"value":"","name":"Cross-Country / Cheswolde"},{"id":11,"value":"","name":"Dickeyville / Franklintown"},{"id":12,"value":"","name":"Dorchester / Ashburton"},{"id":13,"value":"","name":"Downtown / Seton Hill"},{"id":14,"value":"","name":"Edmondson Village"},{"id":15,"value":"","name":"Fells Point"},{"id":16,"value":"","name":"Forest Park / Walbrook"},{"id":17,"value":"","name":"Glen-Falstaff"},{"id":18,"value":"","name":"Greater Charles Village / Barclay"},{"id":19,"value":"","name":"Greater Govans"},{"id":20,"value":"","name":"Greater Mondawmin"},{"id":21,"value":"","name":"Greater Roland Park / Poplar"},{"id":22,"value":"","name":"Greater Rosemont"},{"id":23,"value":"","name":"Hamilton"},{"id":24,"value":"","name":"Harford / Echodale"},{"id":25,"value":"","name":"Highlandtown"},{"id":26,"value":"","name":"Howard Park / West Arlington"},{"id":27,"value":"","name":"Inner Harbor / Federal Hill"},{"id":28,"value":"","name":"Lauraville"},{"id":29,"value":"","name":"Loch Raven"},{"id":30,"value":"","name":"Madison / East End"},{"id":31,"value":"","name":"Medfield / Hampden / Woodberry / Remington"},{"id":32,"value":"","name":"Midway / Coldstream"},{"id":33,"value":"","name":"Morrell Park / Violetville"},{"id":34,"value":"","name":"Mt. Washington / Coldspring"},{"id":35,"value":"","name":"North Baltimore / Guilford / Homeland"},{"id":36,"value":"","name":"Northwood"},{"id":37,"value":"","name":"Orangeville / East Highlandtown"},{"id":38,"value":"","name":"Patterson Park North & East"},{"id":39,"value":"","name":"Penn North / Reservoir Hill"},{"id":40,"value":"","name":"Pimlico / Arlington / Hilltop"},{"id":41,"value":"","name":"Poppleton / The Terraces / Hollins Market"},{"id":42,"value":"","name":"Sandtown-Winchester / Harlem Park"},{"id":43,"value":"","name":"South Baltimore"},{"id":44,"value":"","name":"Southeastern"},{"id":45,"value":"","name":"Southern Park Heights"},{"id":46,"value":"","name":"Southwest Baltimore"},{"id":47,"value":"","name":"The Waverlies"},{"id":48,"value":"","name":"Washington Village / Pigtown"},{"id":49,"value":"","name":"Westport / Mt. Winans / Lakeland"},{"id":50,"value":"","name":"Oldtown / Middle East"},{"id":51,"value":"","name":"Harbor East / Little Italy"},{"id":52,"value":"","name":"Upton / Druid Heights"},{"id":53,"value":"","name":"Midtown"},{"id":54,"value":"","name":"Greenmount East"}];
@@ -165,12 +166,14 @@ var bmoreHealth = {
 			$('.ranks.ranks--mid').toggleClass('active');
 			$('.ranks__expandBtn__detail').toggleClass('active');
 		});
-		$('.category__var').on('click',function(){
-			$('.category__var--active').toggleClass('category__var--active');
-			$(this).addClass('category__var--active');
+		$('.category__var p').on('click',function(){
+			$(this).parent().toggleClass('category__var--active');
 		});
 		$('.category__var__subvar').one('click', function(){
 			$('.ranksWrap').fadeIn();
+		});
+		$('.icon-location').on('click', function(){
+			$('.ranks--highlight').fadeIn();
 		});
 	},
 	optionsSwap: function(toCat){
