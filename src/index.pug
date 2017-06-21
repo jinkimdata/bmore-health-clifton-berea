@@ -26,7 +26,7 @@ html(class="no-js", lang="en")
 		meta(name="author", content="") 
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
 		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Lato|PT+Sans|Montserrat|Old+Standard+TT")
-		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?616e")
+		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?619a")
 		link(rel="stylesheet", type="text/css", href=datalink + "css/fontello.css")
 
 		//Facebook Stuff
@@ -82,27 +82,44 @@ html(class="no-js", lang="en")
 				for category,i in categories
 					if i==0
 						.category.category--active(class="category--"+i)
+							p.directions
+								i.icon-right-open
+								| Select a category below to explore city statistics
 							for subcat,j in category
 								if subcat.subcat0 == null
 									ul.category__var.category__var--singleitem
-										li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
+										li.category__var__subvar(data-var=counter++) #{subcat.cat}
 								else
 									ul.category__var #{subcat.cat}
 										for variable,k in subcat
 											if k != "cat" && variable != null
-												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
+												li.category__var__subvar(data-var=counter++) #{variable}
 					else
 						.category(class="category--"+i)
+							p.directions
+								i.icon-right-open
+								| Select a category below to explore city statistics
 							for subcat,j in category
 								if subcat.subcat0 == null
 									ul.category__var.category__var--singleitem
-										li.category__var__subvar.dataJSTrigger(data-var=counter++) #{subcat.cat}
+										li.category__var__subvar(data-var=counter++) #{subcat.cat}
 								else
 									ul.category__var #{subcat.cat}
 										for variable,k in subcat
 											if k != "cat" && variable != null
-												li.category__var__subvar.dataJSTrigger(data-var=counter++) #{variable}
+												li.category__var__subvar(data-var=counter++) #{variable}
 				.map
+					p.directions
+						i.icon-right-open
+						| Click on the map to focus one area
+					ul.ranks.ranks--highlight
+						li.ranks__hood
+							.ranks__hood__detail.ranks__hood__detail--num.ranks__hood__detail--num--HL -
+							.ranks__hood__detail.ranks__hood__detail--name.ranks__hood__detail--name--HL - - -
+							.ranks__hood__detail.ranks__hood__detail--extra.ranks__hood__detail--extra--HL
+								p Stat: 
+									span - - -
+					//- p.directions Click on the map to focus a specific neighborhood
 					include includes/bmore-neighborhoods.svg
 					.map__averageLabel City AVG: 
 						span -
@@ -112,14 +129,7 @@ html(class="no-js", lang="en")
 						.map__legend__label.map__legend__label--right 
 				.visualization
 				.ranksWrap
-					ul.ranks.ranks--highlight
-						li.ranks__hood
-							.ranks__hood__detail.ranks__hood__detail--num
-							.ranks__hood__detail.ranks__hood__detail--name
-							.ranks__hood__detail.ranks__hood__detail--extra
-								p Stat: 
-									span - - -
-					h2 Ranking
+					h2 Neighborhood rankings
 					h3.rankCategory
 					- var i = 0
 					ul.ranks.ranks--top5
@@ -181,6 +191,6 @@ html(class="no-js", lang="en")
 		script(src=datalink + "js/min/jquery-3.0.0.min.js")
 		//- script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js")
-		script(src=datalink + "js/app.js?616e")
+		script(src=datalink + "js/app.js?619a")
 		//- script(src=datalink + "js/app.min.js")
 		

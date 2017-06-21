@@ -38,6 +38,7 @@ body {
 	color: $text-0;
 	font-size: 14px; // body-level font size for "em"-scaled designs	
 	font-family: $lato;
+	font-weight: 400;
 	@media(min-width: 600px) {
 		font-size: 16px;
 	}
@@ -128,6 +129,9 @@ h1 {
 					color: $accent-0;
 					text-shadow: .1em .1em $primary-dark;
 				}
+				p {					
+					color: white;
+				}
 			}
 		}
 	}
@@ -143,10 +147,13 @@ h1 {
 	p {
 		display: none;
 		margin: .3em 0 0 0;
-		color: $text-1;
+		color: $primary-light;
 		font-size: 2.5vmin;
 		font-weight: bold;
 		text-transform: uppercase;
+		@media(min-width: 600px) {
+			display: block;
+		}
 	}
 }
 .data {
@@ -167,6 +174,16 @@ h1 {
 		margin: 0 0 1em 0;
 		color: $text-2;
 	}
+	p.directions  {
+		margin-top: 0;
+		color: $primary-dark;
+		font-size: 1em;
+		font-weight: bold;
+		text-align: center;
+		@media(min-width: 768px) {
+			text-align: left;
+		}
+	}
 	.category {
 		display: none;
 		height: 100%;
@@ -179,7 +196,7 @@ h1 {
 		&__var {
 			display: block;
 			width: 100%;
-			max-height: 1.3em;
+			max-height: 1.2em;
 			margin: 0 0 1em 0;
 			padding: 0;
 			color: $text-2;
@@ -236,6 +253,11 @@ h1 {
 				fill-opacity: .5;
 				stroke: $base;
 				stroke-width: 2px;
+				cursor: pointer;
+				&--highlight {
+					fill: $accent-0;
+					fill-opacity: 1;
+				}
 			}
 		}
 		&__averageLabel {
@@ -316,9 +338,31 @@ h1 {
 			@include transition(max-height 1s linear);
 		}
 		&--bot {
+			li:first-child {
+				margin-top: 0;	
+			}
 		}
 		&--highlight {
 			display: none;
+			.ranks__hood {
+				&__detail {
+					&--num {
+						background-color: $accent-0;
+					}
+					&--name {
+					}
+					&--extra {
+						background-color: lighten($accent-0,40);
+
+						p {
+						}
+						span {
+						}
+						i {
+						}
+					}
+				}
+			}
 		}
 		&__hood {
 			height: 50px;
@@ -343,6 +387,9 @@ h1 {
 					float: left;
 				}
 				&--name {
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 				&--extra {
 					width: 100%;
@@ -454,6 +501,15 @@ h1 {
 	background-color: $accent-0;
 	font-family: $lato;
 	text-transform: uppercase;
+	p {
+		margin: 0;
+	}
+	&__hood {
+		font-weight: bold;
+	}
+	&__stat {
+
+	}
 }
 .overlay {
 	display: none;
