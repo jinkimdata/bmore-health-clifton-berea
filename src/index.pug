@@ -5,7 +5,7 @@
 //- There are two datalink variables so I don't have to rewrite the link every time. 
 //- The second datalink variable declaration overwrites the first one. 
 //- When I want to switch to my server assets, I comment out the second declaration.
-- var datalink = "http://data.baltimoresun.com/jin/test/bmore-health/"
+- var datalink = "http://data.baltimoresun.com/news/neighborhood-health/"
 - var datalink = ""
 
 include includes/data.pug
@@ -21,32 +21,32 @@ html(class="no-js", lang="en")
 	head
 		//Basic page needs
 		meta(charset="utf-8")
-		title
-		meta(name="description", content="")
-		meta(name="author", content="") 
+		title Baltimore Neighborhood Health 2016
+		meta(name="description", content="Take the pulse of Baltimore's neighborhoods in this in-depth data dive.")
+		meta(name="author", content="The Baltimore Sun") 
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
 		link(rel="stylesheet", type="text/css", href="http://fonts.googleapis.com/css?family=Lato|PT+Sans|Montserrat|Old+Standard+TT")
-		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?621d")
+		link(rel="stylesheet", type="text/css", href=datalink + "css/style.css?622b")
 		link(rel="stylesheet", type="text/css", href=datalink + "css/fontello.css")
 
 		//Facebook Stuff
-		meta(property="og:title", content="")
-		meta(property="og:url", content="")
-		meta(property="og:image", content="")
+		meta(property="og:title", content="Baltimore Neighborhood Health 2016")
+		meta(property="og:url", content="http://data.baltimoresun.com/news/neighborhood-health")
+		meta(property="og:image", content="http://data.baltimoresun.com/news/neighborhood-health/images/thumb.jpg")
 		meta(property="og:site_name", content="The Baltimore Sun")
-		meta(property="og:description", content="")
+		meta(property="og:description", content="Take the pulse of Baltimore's neighborhoods in this in-depth data dive.")
 		meta(property="fb:app_id", content="310302989040998")
 		//Twitter Stuff
 		meta(name="twitter:card", content="summary")
 		meta(name="twitter:site", content="@baltimoresun")
-		meta(name="twitter:creator", content="")
-		meta(name="twitter:title", content="")
-		meta(name="twitter:description", content="")
-		meta(name="twitter:image", content="")
+		meta(name="twitter:creator", content="@baltsundata")
+		meta(name="twitter:title", content="Baltimore Neighborhood Health 2016")
+		meta(name="twitter:description", content="Take the pulse of Baltimore's neighborhoods in this in-depth data dive.")
+		meta(name="twitter:image", content="http://data.baltimoresun.com/news/neighborhood-health/images/thumb.jpg")
 		meta(name="twitter:domain", content="baltimoresun.com")
 
 		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-body below.
-		//- include includes/ad-for-header.html
+		include includes/ad-for-header.html
 		
 	body
 		//- This omniture file will also add a topnav. 
@@ -58,6 +58,7 @@ html(class="no-js", lang="en")
 				h1 Baltimore
 					span Neighborhood
 					span Health
+					span (2016)
 			.navbar
 				ul
 					li
@@ -109,7 +110,8 @@ html(class="no-js", lang="en")
 									ul.category__var.category__var--singleitem
 										li.category__var__subvar(data-var=counter++) #{subcat.cat}
 								else
-									ul.category__var #{subcat.cat}
+									ul.category__var
+										p #{subcat.cat}
 										for variable,k in subcat
 											if k != "cat" && variable != null
 												li.category__var__subvar(data-var=counter++) #{variable}
@@ -133,6 +135,9 @@ html(class="no-js", lang="en")
 						.map__legend__label.map__legend__label--left 
 						.map__legend__label.map__legend__label--right 
 				.visualization
+				//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.
+				#leaderboard
+					include includes/ad-for-body.html
 				.ranksWrap
 					h2 Neighborhood rankings
 					h3.rankCategory % of childen living in single parent households
@@ -186,16 +191,21 @@ html(class="no-js", lang="en")
 			//- 	.overlay__mapWrapper
 			//- 		include includes/bmore-neighborhoods.svg
 
-
-		//- Ad tag, uncomment to put in ad. Be sure to uncomment the ad-for-header above.
-		//- #leaderboard			
-			include includes/ad-for-body.html
-		
+		.shareButtons
+			i.icon-twitter-squared
+			i.icon-facebook-squared
+		footer
+			p.source Source: 
+				a(href="http://health.baltimorecity.gov/neighborhoods/neighborhood-health-profile-reports" target="_blank") Baltimore City Health Department
+			hr
+			p.credit Jin Bae Kim / 
+				a(href="http://www.baltimoresun.com/news/data/" target="_blank") The Baltimore Sun
 		//Javascript
 		//- MAKE SURE TO CHECK OUT package.json and look at the uglify script. 
 		script(src=datalink + "js/min/jquery-3.0.0.min.js")
 		//- script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js")
-		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js")
-		script(src=datalink + "js/app.js?621d")
-		//- script(src=datalink + "js/app.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js")
+		//- script(src=datalink + "js/app.js?622b")
+		script(src=datalink + "js/min/app.min.js?622b")
 		
+	

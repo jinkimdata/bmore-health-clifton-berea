@@ -3,20 +3,20 @@ var bmoreHealth = {
 		bmoreHealth.optionsSwap(0);
 		bmoreHealth.otherTriggers();
 		bmoreHealth.dataViz();
-		//bmoreHealth.share();
+		bmoreHealth.share();
 	},
 	share: function(){
-		$(".icon-twitter").on("click", function(){
-			var tweet = ""; //Tweet text
-			var url = ""; //Interactive URL
+		$(".icon-twitter-squared").on("click", function(){
+			var tweet = "Take the pulse of Baltimore's neighborhoods in this in-depth data dive."; //Tweet text
+			var url = "http://data.baltimoresun.com/news/neighborhood-health"; //Interactive URL
 			var twitter_url = "https://twitter.com/intent/tweet?text="+tweet+"&url="+url+"&tw_p=tweetbutton";
 			window.open(twitter_url, 'mywin','left=200,top=200,width=500,height=300,toolbar=1,resizable=0'); return false;
 		});
-		$(".icon-facebook").on("click", function(){
-			var picture = ""; //Picture URL
-			var title = ""; //Post title
-			var description = ""; //Post description
-			var url = ""; //Interactive URL
+		$(".icon-facebook-squared").on("click", function(){
+			var picture = "http://data.baltimoresun.com/news/neighborhood-health/images/thumb.jpg"; //Picture URL
+			var title = "Baltimore Neighborhood Health 2016"; //Post title
+			var description = "Take the pulse of Baltimore's neighborhoods in this in-depth data dive."; //Post description
+			var url = "http://data.baltimoresun.com/news/neighborhood-health"; //Interactive URL
 	    	var facebook_url = "https://www.facebook.com/dialog/feed?display=popup&app_id=310302989040998&link="+url+"&picture="+picture+"&name="+title+"&description="+description+"&redirect_uri=http://www.facebook.com";    		
 			window.open(facebook_url, 'mywin','left=200,top=200,width=500,height=300,toolbar=1,resizable=0'); return false;
 		});
@@ -96,7 +96,7 @@ var bmoreHealth = {
 			highlightHood = rankOrder[rankNum].id;
 			$('.neighborhood--highlight').removeClass('neighborhood--highlight');
 			$('.neighborhood--'+highlightHood).addClass('neighborhood--highlight');
-			$('body').animate({scrollTop:$('.data').position().top});
+			$('body').animate({scrollTop:$('.map').position().top});
 			populateData(currVar);
 		});
 		function populateData(variable){

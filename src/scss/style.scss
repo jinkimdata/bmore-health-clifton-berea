@@ -39,6 +39,7 @@ body {
 	font-size: 14px; // body-level font size for "em"-scaled designs	
 	font-family: $lato;
 	font-weight: 400;
+	overflow-x: hidden;
 	@media(min-width: 600px) {
 		font-size: 16px;
 	}
@@ -96,6 +97,9 @@ h1 {
 	text-shadow: .05em .05em $primary-dark, .1em .1em $primary;
 	span {
 		display: block;
+		&:last-child {
+
+		}
 	}
 	@media(min-width: 600px) {
 		font-size: 2.75em;
@@ -148,7 +152,7 @@ h1 {
 		display: none;
 		margin: .3em 0 0 0;
 		color: $primary-light;
-		font-size: 2.5vmin;
+		font-size: 1em;
 		font-weight: bold;
 		text-transform: uppercase;
 		@media(min-width: 600px) {
@@ -377,6 +381,9 @@ h1 {
 			font-weight: bold;
 			line-height: 0;
 			@media(min-width: 400px) {
+				margin: 1em auto;
+			}
+			@media(min-width: 600px) {
 				margin: 1.5em auto;
 			}
 			&__detail {
@@ -518,6 +525,54 @@ h1 {
 
 	}
 }
+.shareButtons {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: .2em;
+	color: $shader-0b;
+	font-size: 1.5em;
+	i {
+		cursor: pointer;
+		&:hover {
+			color: $accent-0;
+		}
+	}
+}
+footer {
+	margin-top: 2em;
+	p {
+		width: 100%;
+		margin: 0;
+		text-transform: uppercase;
+	}
+	.source {
+		a {
+			text-transform: none;
+		}
+	}
+	.credit {
+		text-align: right;
+		a {
+			font-weight: bold;
+		}
+	}
+	hr {
+		margin: .2em auto;
+	}
+}
+/* Leaderboard */
+#leaderboard {
+	width: 728px;
+	height: 90px;
+	background-color: $base;
+	margin: 10px auto;
+	text-align: center;
+	clear: both;
+	@media (max-width: 730px){
+		display: none;
+	}
+}
 // .overlay {
 // 	display: none;
 // 	width: 100%;
@@ -580,17 +635,5 @@ h1 {
 // 				stroke-width: 2px;
 // 			}
 // 		}
-// 	}
-// }
-
-/* Leaderboard */
-// #leaderboard {
-// 	width: 728px;
-// 	height: 90px;
-// 	background-color: #222222;
-// 	margin: 10px auto;
-// 	text-align: center;
-// 	@media (max-width: 730px){
-// 		display: none;
 // 	}
 // }
