@@ -84,28 +84,35 @@ button {
 .headline {
 	width: 100%;
 	background-color: $primary-dark;
-}
-h1 {
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: .3em 0;
 	color: $text-1;
-	font-size: 2em;
-	letter-spacing: .05em;
-	line-height: 1.2em;
 	text-align: center;
-	text-shadow: .05em .05em $primary-dark, .1em .1em $primary;
-	span {
-		display: block;
-		&:last-child {
+	h1 {
+		max-width: 1000px;
+		margin: 0 auto;
+		font-size: 2em;
+		line-height: 1.2em;
+		letter-spacing: .05em;
+		padding: .3em 0;
+		text-shadow: .05em .05em $primary-dark, .1em .1em $primary;
+		span {
+			display: block;
+			&:last-child {
 
+			}
+		}
+		@media(min-width: 600px) {
+			font-size: 2.75em;
+		}
+		@media(min-width: 768px) {
+			font-size: 3.5em;
 		}
 	}
-	@media(min-width: 600px) {
-		font-size: 2.75em;
-	}
-	@media(min-width: 768px) {
-		font-size: 3.5em;
+	p {
+		max-width: 1000px;
+		font-size: 1.3em;
+		margin: 0 auto;
+		color: $text-1;
+		padding-bottom: 1em;
 	}
 }
 .navbar {
@@ -565,7 +572,7 @@ footer {
 #leaderboard {
 	width: 728px;
 	height: 90px;
-	background-color: $base;
+	background-color: $base-dark;
 	margin: 10px auto;
 	text-align: center;
 	clear: both;
