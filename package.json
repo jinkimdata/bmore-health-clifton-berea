@@ -1,7 +1,7 @@
 {
-  "name": "bmore-neighborhood-health",
+  "name": "bmore-neighborhood-health-clifton-berea",
   "version": "1.0.0",
-  "description": "bmore-neighborhood-health",
+  "description": "bmore-neighborhood-health-clifton-berea",
   "main": "index.js",
   "scripts": {
     "pug": "pug  -P -p src/index.pug < src/index.pug > dist/index.html",
@@ -27,15 +27,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jinkimdata/bmore-neighborhood-health.git"
+    "url": "git+https://github.com/jinkimdata/bmore-neighborhood-health-clifton-berea.git"
   },
   "keywords": ["baltimore sun"],
   "author": "",
   "license": "",
   "bugs": {
-    "url": "https://github.com/jinkimdata/bmore-neighborhood-health/issues"
+    "url": "https://github.com/jinkimdata/bmore-neighborhood-health-clifton-berea/issues"
   },
-  "homepage": "https://github.com/jinkimdata/bmore-neighborhood-health#readme",
+  "homepage": "https://github.com/jinkimdata/bmore-neighborhood-health-clifton-berea#readme",
   "devDependencies": {
   }
 }

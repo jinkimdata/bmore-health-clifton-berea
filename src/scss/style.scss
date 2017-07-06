@@ -34,7 +34,7 @@ $bp-4: 900px;
 $bp-5: 1000px;
 
 body {
-	background-color: $base-dark;
+	background-color: $base;
 	color: $text-0;
 	font-size: 14px; // body-level font size for "em"-scaled designs	
 	font-family: $lato;
@@ -79,21 +79,45 @@ button {
 }
 .container {
 	position: relative;
-	margin-top: 50px; // Pushes below topnav
+	max-width: 1000px;
+	height: 100vh;
+	margin: 0 auto; // Pushes below topnav
+	padding-top: 50px;
+}
+
+.navButtons {
+	// display: none;
+	position: absolute;
+	bottom: .5em;
+	left: 0;
+	width: 100%;
+	font-size: 2em;
+	text-shadow: .05em .05em $base, .1em .1em $primary;
+	i:hover {
+		color: $primary;
+		cursor: pointer;
+	}
+	.icon-left-open {
+
+	}
+	.icon-right-open {
+		float: right;
+	}
 }
 .headline {
 	width: 100%;
-	background-color: $primary-dark;
-	color: $text-1;
-	text-align: center;
+	padding: 0 .75em;
+	background-color: $base;
+	color: $text-0;
+	text-align: left;
 	h1 {
-		max-width: 1000px;
 		margin: 0 auto;
 		font-size: 2em;
 		line-height: 1.2em;
 		letter-spacing: .05em;
 		padding: .3em 0;
-		text-shadow: .05em .05em $primary-dark, .1em .1em $primary;
+		text-shadow: .05em .05em $base, .1em .1em $primary;
+		@include transition(all .5s ease);
 		span {
 			display: block;
 			&:last-child {
@@ -108,149 +132,46 @@ button {
 		}
 	}
 	p {
-		max-width: 1000px;
+		line-height: 1.5em;
 		font-size: 1.3em;
 		margin: 0 auto;
-		color: $text-1;
+		color: $text-0;
 		padding-bottom: 1em;
 	}
-}
-.navbar {
-	width: 100%;
-	padding: .5em 0;
-	background-color: $primary;
-	@media(min-width: 600px) {
-		box-shadow: 0 -.25em 1.5em -.5em $shader-0b;
-	}
-	ul {
-		width: 100%;
-		max-width: 1000px;
-		margin: 0 auto;
-		padding: 0;
-		list-style-type: none;
-	}
-	li {
-		display: inline-block;
-		width: 24%;
-		padding: .5em 0;
-		text-align: center;		
-		.categoryBtn {
-			&--active {
-				i {
-					color: $accent-0;
-					text-shadow: .1em .1em $primary-dark;
-				}
-				p {					
-					color: white;
-				}
-			}
-		}
-	}
-	i {
-		color: $primary-light;
-		font-size: 2em;
-		text-shadow: 0px 0px 0px 5px white;
-		@include transition(all .5s ease)
-		@media(min-width: 768px) {
-			font-size: 2.5em;
-		}
-	}
-	p {
-		display: none;
-		margin: .3em 0 0 0;
-		color: $primary-light;
+	.credit {
 		font-size: 1em;
-		font-weight: bold;
-		text-transform: uppercase;
-		@media(min-width: 600px) {
-			display: block;
+		color: $text-2;
+	}
+	// @include transition(all .5s ease);
+	&.active {
+		h1 {
+			color: $text-2;
+			font-size: 1.5em;
+			text-shadow: .05em .05em $base, .1em .1em $text-2;
 		}
 	}
 }
 .data {
-	max-width: 1000px;
 	padding: .75em;
 	background-color: $base;
 	@media(min-width: 1000px) {
 		margin: 0 auto;
 	}
-	h2 {
-		margin: .3em 0;
-		color: $accent-0;
-		font-size: 2em;
-		text-align: center;
-	}
-	h3 {
-		text-align: center;
-		margin: 0 0 1em 0;
-		color: $text-2;
-	}
-	p.directions  {
-		margin-top: 0;
-		color: $primary-dark;
-		font-size: 1em;
-		font-weight: bold;
-		text-align: center;
-		@media(min-width: 768px) {
-			text-align: left;
+	&__viz {
+		svg {
+
 		}
-	}
-	.category {
-		display: none;
-		height: 100%;
-		padding: 1em 0 0 0;
-		@media(min-width: 768px) {
-			width: 62%;
-			margin-bottom: 3em;
-			float: right;
+		.cube {
 		}
-		&__var {
-			display: block;
-			width: 100%;
-			max-height: 1.2em;
-			margin: 0 0 1em 0;
-			padding: 0;
-			color: $text-2;
-			font-weight: bold;
-			text-align: center;
-			// text-transform: uppercase;
-			list-style-type: none;
-			overflow: hidden;
-			cursor: pointer;
-			@include transition(all .5s ease)
-			p {
-				margin: 0;
-			}
-			&--active {
-				max-height: 10em;
-				background-color: lighten($primary-light, 10);
-				border-radius: 0;
-			}
-			&--singleitem {
-				max-height: 10em;
-				border-radius: 5px;
-				border: none;
-				.category__var__subvar {
-					margin-left: 0;
-				}
-			}
-			@media(min-width: 768px) {
-				text-align: left;
-			}
-			&__subvar {
-				border-radius: 5px;
-				margin-left: .5em;
-				// cursor: pointer;
-				@include transition(all .5s ease)
-				&--active {
-					padding: .5em;
-					color: $text-0;
-					background-color: $primary-light;
-				}
-				// @include transition(color .5s ease)
+		&__legend {
+			text {
+				font-family: $lato;
+				font-size: 14px;
+				fill: $text-2;
 			}
 		}
 	}
+
 	.map {
 		padding: 1em;
 		@media(min-width: 400px) {
@@ -324,212 +245,36 @@ button {
 			}
 		}
 	}
-	.ranksWrap {
-		// display: none;
-		margin-top: 3em;
-		@media(min-width: 768px) {
-			clear: both;
-		}
-		h2 {
-			margin: 0;
-		}
-	}
-	.ranks {
-		margin: 0;
-		padding: 0;
-		font-size: 12px;
-		list-style: none;
-		@media(min-width: 400px) {
-			max-width: 500px;
-			margin: 0 auto;
-			font-size: .9em;
-		}
-		&--top {
-		}
-		&--mid {
-			max-height: 0;
-			overflow: hidden;
-			&.active {
-				max-height: 4000px;
-				@include transition(max-height 3s linear);
-			}
-			@include transition(max-height 1s linear);
-		}
-		&--bot {
-			li:first-child {
-				margin-top: 0;	
-			}
-		}
-		&--highlight {
-			display: none;
-			.ranks__hood {
-				&__detail {
-					&--num {
-						background-color: $accent-0;
-					}
-					&--name {
-					}
-					&--extra {
-						background-color: lighten($accent-0,40);
-
-						p {
-						}
-						span {
-						}
-						i {
-						}
-					}
-				}
-			}
-		}
-		&__hood {
-			height: 50px;
-			margin: .5em auto;
-			font-weight: bold;
-			line-height: 0;
-			@media(min-width: 400px) {
-				margin: 1em auto;
-			}
-			@media(min-width: 600px) {
-				margin: 1.5em auto;
-			}
-			&__detail {
-				padding: 1em 0;
-				&--num {
-					display: inline-block;
-					width: 25px;
-					height: 48px;
-					margin-right: .3em;
-					padding: 2em 0;
-					color: white;
-					background-color: $primary;
-					border-radius: 5px 0 0 5px;
-					text-align: center;
-					float: left;
-				}
-				&--name {
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-				&--extra {
-					width: 100%;
-					border-radius: 5px;
-					color: $text-2;
-					background-color: $primary-light;
-					text-transform: uppercase;
-					p {
-						display: inline-block;
-						margin: 0;
-					}
-					span {
-						color: $text-0;
-						text-transform: lowercase;
-					}
-					i {
-						display: inline-block;
-						font-size: 1.4em;
-						color: $primary-dark;
-						float: right;
-						cursor: pointer;
-						&:before {
-							line-height: 0;
-						}
-					}
-				}
-			}
-		}
-		&__expandBtn {
-			display: table;
-			width: 100%;
-			position: relative;
-			background-color: $base;
-			font-weight: bold;
-			text-align: center;
-			&__verticalFix {
-				display: table-cell;
-				cell-width: 100%;
-				height: 75px;
-				vertical-align: middle;
-			}
-			&__detail {
-				margin: .5em auto;
-				background-color: $primary-light;
-				font-size: 14px;
-				text-transform: uppercase;
-				@include transition(all .5s ease)
-				&--circle {
-					display: block;
-					width: 25px;
-					height: 3px;
-					&.active {
-						width: 15px;
-						height: 15px;
-						border-radius: 99px;
-					}
-				}
-				&--arrow {					
-					display: block;
-					width: 25px;
-					height: 3px;
-					&.active {
-						width: 0;
-						height: 0;
-						background-color: $base;
-						border-left: 10px solid transparent;
-						border-right: 10px solid transparent;
-						border-top: 15px solid $primary-light;
-					}
-				}
-				&--main {
-					display: inline-block;
-					width: 175px;
-					padding: .2em 0;
-					background-color: $primary;
-					color: $text-1;
-					border: 1px solid $primary;
-					border-radius: 99px;
-					p {
-						margin: 0;
-						span {
-							color: $primary-light;
-							&:first-child {
-								color: $text-0;
-							}
-						}
-					}
-					&.active {
-						background-color: $base;
-						p {
-							span {
-								color: $shader-2;
-								&:last-child {
-									color: $text-0;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 }
-.mapTooltip {
-	position: absolute;
-	padding: .5em;
-	border-radius: 50px 50px 50px 0;
-	color: white;
-	background-color: $accent-0;
+.text {
+	padding: 0 .75em;
 	font-family: $lato;
-	text-transform: uppercase;
-	p {
-		margin: 0;
-	}
-	&__hood {
-		font-weight: bold;
+	color: $text-0;
+	font-size: 1em;
+	&__header {
+		color: $primary-dark;
+		font-size: 2em;
+		text-transform: uppercase;
+		text-align: center;
+		margin: .5em 0;
 	}
 	&__stat {
-
+		color: $text-2;
+		font-size: 1.2em;
+		text-align: left;
+		margin: .5em 0;
+		span {
+			font-weight: bold;
+		}
+	}
+	&__list {
+		color: $text-2;
+		font-size: 1.2em;
+		text-align: center;
+		margin: .5em 0;
+		span {
+			font-weight: bold;
+		}
 	}
 }
 .shareButtons {
@@ -545,34 +290,12 @@ button {
 			color: $accent-0;
 		}
 	}
-}
-footer {
-	margin-top: 2em;
-	p {
-		width: 100%;
-		margin: 0;
-		text-transform: uppercase;
-	}
-	.source {
-		a {
-			text-transform: none;
-		}
-	}
-	.credit {
-		text-align: right;
-		a {
-			font-weight: bold;
-		}
-	}
-	hr {
-		margin: .2em auto;
-	}
-}
+} 
 /* Leaderboard */
 #leaderboard {
 	width: 728px;
 	height: 90px;
-	background-color: $base-dark;
+	background-color: $base;
 	margin: 10px auto;
 	text-align: center;
 	clear: both;
