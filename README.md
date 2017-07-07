@@ -1,3 +1,3 @@
-# bmore-health-2017
+# bmore-health-clifton-berea
 
-WIP: Tool for navigating Baltimore neighborhood data
+WIP: Catered exploration of neighborhood data

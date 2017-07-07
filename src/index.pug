@@ -63,12 +63,14 @@ html(class="no-js", lang="en")
 				p.credit By Jin Bae Kim
 			//- .neighborhoodSVG
 			//- 	include includes/neighborhood.svg
+			.startButton
+				i.slideBtn.icon-right-open(data-toslide="0")
 			.data
+				.navButtons
+					i.slideBtn.icon-left-open(data-toslide="-1")
+					i.slideBtn.icon-right-open(data-toslide="1")
 
 			.text
-			.navButtons
-				i.icon-left-open(data-toslide="-1")
-				i.icon-right-open(data-toslide="0")
 					
 		//- .shareButtons
 			i.icon-twitter-squared

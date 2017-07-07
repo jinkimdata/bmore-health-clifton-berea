@@ -41,13 +41,13 @@ body {
 	font-weight: 400;
 	overflow-x: hidden;
 	@media(min-width: 600px) {
-		font-size: 16px;
+		font-size: 20px;
 	}
 	@media(min-width: 1500px) {
-		font-size: 18px;
+		font-size: 24px;
 	}
 	@media(min-width: 2000px) {
-		font-size: 20px;
+		font-size: 24px;
 	}
 }
 h1,h2,h3 {	
@@ -79,31 +79,11 @@ button {
 }
 .container {
 	position: relative;
-	max-width: 1000px;
-	height: 100vh;
+	max-width: 600px;
 	margin: 0 auto; // Pushes below topnav
 	padding-top: 50px;
 }
 
-.navButtons {
-	// display: none;
-	position: absolute;
-	bottom: .5em;
-	left: 0;
-	width: 100%;
-	font-size: 2em;
-	text-shadow: .05em .05em $base, .1em .1em $primary;
-	i:hover {
-		color: $primary;
-		cursor: pointer;
-	}
-	.icon-left-open {
-
-	}
-	.icon-right-open {
-		float: right;
-	}
-}
 .headline {
 	width: 100%;
 	padding: 0 .75em;
@@ -151,13 +131,45 @@ button {
 		}
 	}
 }
+.startButton {
+	width: 100%;
+	font-size: 2em;
+	text-align: right;
+	color: $text-2;
+	i:hover {
+			color: $primary;
+			cursor: pointer;
+	}
+}
 .data {
+	position: relative;
 	padding: .75em;
 	background-color: $base;
 	@media(min-width: 1000px) {
 		margin: 0 auto;
 	}
+
+	.navButtons {
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		color: $text-2;
+		font-size: 2em;
+		i:hover {
+			color: $primary;
+			cursor: pointer;
+		}
+		.icon-left-open {
+
+		}
+		.icon-right-open {
+			float: right;
+		}
+	}
 	&__viz {
+		text-align: center;
 		svg {
 
 		}
@@ -165,13 +177,13 @@ button {
 		}
 		&__legend {
 			text {
-				font-family: $lato;
 				font-size: 14px;
+				font-family: $lato;
+				font-weight: bold;
 				fill: $text-2;
 			}
 		}
 	}
-
 	.map {
 		padding: 1em;
 		@media(min-width: 400px) {
@@ -253,14 +265,14 @@ button {
 	font-size: 1em;
 	&__header {
 		color: $primary-dark;
-		font-size: 2em;
+		font-size: 1.5em;
 		text-transform: uppercase;
 		text-align: center;
-		margin: .5em 0;
+		margin:  0;
 	}
 	&__stat {
 		color: $text-2;
-		font-size: 1.2em;
+		font-size: 1em;
 		text-align: left;
 		margin: .5em 0;
 		span {
@@ -269,7 +281,7 @@ button {
 	}
 	&__list {
 		color: $text-2;
-		font-size: 1.2em;
+		font-size: 1em;
 		text-align: center;
 		margin: .5em 0;
 		span {
