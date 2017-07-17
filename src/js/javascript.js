@@ -144,8 +144,10 @@ var bmoreHealthProfile = {
 					dataLegendSVG.append('text')
 						.text('= 100 people')
 						.style('opacity',0)
+						.attr('alignment-baseline','central')
+						.attr('dy','.5em')
 						.attr('transform',
-							"translate(" + cubeWidth + ", 11" + ")")
+							"translate(" + cubeWidth + ",0)")
 						.transition()
 						.duration(1000)
 						.style('opacity',1);

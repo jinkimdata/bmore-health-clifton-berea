@@ -82,7 +82,7 @@ var bmoreHealthProfile = {
                 }
                 dataLegendSVG = dataLegend.append("svg").style("width", dataWidth).style("height", cubeWidth);
                 dataLegendSVG.append("rect").style("opacity", 0).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", lightgreen).transition().duration(1e3).style("opacity", 1).attr("class", "cube");
-                dataLegendSVG.append("text").text("= 100 people").style("opacity", 0).attr("transform", "translate(" + cubeWidth + ", 11" + ")").transition().duration(1e3).style("opacity", 1);
+                dataLegendSVG.append("text").text("= 100 people").style("opacity", 0).attr("alignment-baseline", "central").attr("dy", ".5em").attr("transform", "translate(" + cubeWidth + ",0)").transition().duration(1e3).style("opacity", 1);
                 break;
 
               case 1:
