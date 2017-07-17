@@ -208,7 +208,7 @@ var bmoreHealthProfile = {
               case 5:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html("The neighborhood has the <span>eighth lowest</span> median household income at <span>$25,738</span>.").attr("class", "text__stat");
+                    textWrap.append("p").html("In addition to the public health issues, the neighborhood also has the <span>eighth lowest</span> median household income at <span>$25,738</span>.").attr("class", "text__stat");
                     textWrap.append("p").html('<span style="color:' + orange + ';">44.8%</span> of Clifton-Berea households make <span style="color:' + orange + ';"> under $25,000</span>.').attr("class", "text__stat");
                     $(".text").fadeIn();
                 });
@@ -260,7 +260,7 @@ var bmoreHealthProfile = {
               case 7:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('Among 5,776 adults 25 or older, <span style="color:' + darkgreen + ';">63.3%</span> have a <span style="color:' + darkgreen + ';">high school diploma</span>.').attr("class", "text__stat");
+                    textWrap.append("p").html('Among the neighborhoods 5,776 adults 25 or older, <span style="color:' + darkgreen + ';">63.3%</span> have a <span style="color:' + darkgreen + ';">high school diploma</span>.').attr("class", "text__stat");
                     $(".text").fadeIn();
                 });
                 newRow = 0;
@@ -289,8 +289,7 @@ var bmoreHealthProfile = {
               case 8:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html("Among 5,776 adults 25 or older, 63.3% have a high school diploma.").style("color", gray).attr("class", "text__stat");
-                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">7.7%</span> have a <span style="color:' + darkgreen + ";\">bachelor's degree or more</span>.").attr("class", "text__stat");
+                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">7.7%</span> of adults 25 or older have a <span style="color:' + darkgreen + ";\">bachelor's degree or more</span>.").attr("class", "text__stat");
                     $(".text").fadeIn();
                 });
                 newRow = 0;
@@ -311,66 +310,34 @@ var bmoreHealthProfile = {
                         d3.select(this).transition().duration(150).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "hidden");
                     }
                 });
+                dataLegendSVG.attr("visibility", "visible");
                 dataLegendSVG.select("text").text("= 100 people");
                 break;
 
               case 9:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html("Among 5,776 adults 25 or older, 63.3% have a high school diploma.").style("color", gray).attr("class", "text__stat");
-                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">7.7%</span> have a <span style="color:' + darkgreen + ";\">bachelor's degree or more</span>.").attr("class", "text__stat");
+                    textWrap.append("p").html('<a href="" target="_blank">Read more about Clifton-Berea</a>').attr("class", "text__stat");
+                    textWrap.append("p").html('<a href="" target="_blank">Explore more neighborhood data</a>').attr("class", "text__stat");
+                    textWrap.append("p").append("hr");
+                    textWrap.append("p").html("Visualization by " + '<a href="">Jin Bae Kim</a>').attr("class", "text__stat");
+                    textWrap.append("p").html("Data from " + '<a href="http://health.baltimorecity.gov/neighborhoods/neighborhood-health-profile-reports">Baltimore City Health Department’s 2017 Neighborhood Health Profiles</a>').attr("class", "text__stat");
                     $(".text").fadeIn();
                 });
                 newRow = 0;
                 delay = 0;
                 cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 5) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 4) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .5)).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 5;
-                        }
-                    } else if (i < 59) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 58) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
+                    if (i < 100) {
+                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else {
-                        d3.select(this).transition().duration(150).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "hidden");
+                        d3.select(this).attr("visibility", "hidden");
                     }
                 });
-                dataLegendSVG.select("text").text("= 100 people");
-                break;
-
-              case 99:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + orange + ';">47.9%</span> of the area is within <span style="color:' + orange + ';">food deserts</span>, in which fresh produce is difficult to access.').attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 0;
-                cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    d3.select(this).transition().duration(150).attr("transform", "translate(0,0)");
-                    if (i < 49) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 48) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .9)).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 1;
-                        }
-                    } else if (i < 101) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 100) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .1)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
-                    }
-                });
-                dataLegendSVG.select("text").text("= 1 percent");
-                break;
-
-              case 99:
+                dataLegendSVG.attr("visibility", "hidden");
                 break;
 
               default:
+                toSlide = 9;
                 break;
             }
             $(".icon-left-open").data("toslide", toSlide - 1);
