@@ -484,6 +484,8 @@ button {
       float: right; }
   .data__viz {
     text-align: center; }
+    .data__viz .cube {
+      stroke-width: .1em; }
     .data__viz__legend text {
       font-size: 1em;
       font-family: "Lato", "PT Sans", sans-serif;
