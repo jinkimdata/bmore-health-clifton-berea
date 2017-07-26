@@ -72,7 +72,11 @@ var bmoreHealthProfile = {
 		var oCyan = '#22b8cf';
 		var oTeal = '#12b886';
 
-		var newRow = 0;
+		var iconHouse = [32,33,34,35,36,37,41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,71,72,73,74,75,76,77,78,81,82,84,85,86,87,88,91,92,94,95,96,97,98];
+		var iconDollar = [13,16,23,24,25,26,32,37,42,53,54,55,56,67,72,77,83,84,85,86,93,96];
+		var icon911 = [51,52,53,56,59,61,63,65,66,68,69,71,72,73,76,79,83,86,89,91,92,96,99];
+		var iconHealth = [24,25,34,35,42,43,44,45,46,47,52,53,54,55,56,57,64,65,74,75];
+
 		$('.slideBtn').on('click',function(){
 			toSlide = $(this).data('toslide');
 			switch(toSlide) {
@@ -105,6 +109,7 @@ var bmoreHealthProfile = {
 							.remove();
 						textWrap.append('p')
 							.text('8,413')
+							.style('color',accent)
 							.attr('class','text__header');
 						textWrap.append('p')
 							.text('people live in Clifton-Berea')
@@ -149,14 +154,14 @@ var bmoreHealthProfile = {
 						.style('width',cubeWidth - cubePadding)
 						.style('height',cubeWidth - cubePadding)
 						.attr('fill',accent)
-						.transition()
+						.transition();
 					dataLegendSVG.append('text')
 						.text('')
 						.style('opacity',0)
 						.attr('alignment-baseline','central')
 						.attr('dy','.5em')
 						.attr('transform',
-							"translate(" + cubeWidth + ",0)")
+							"translate(" + cubeWidth + ",0)");
 					dataLegendSVGAvg = dataLegend.append('svg')
 						.style('width', dataWidth)
 						.style('height',cubeWidth);
@@ -173,7 +178,7 @@ var bmoreHealthProfile = {
 						.attr('alignment-baseline','central')
 						.attr('dy','.5em')
 						.attr('transform',
-							"translate(" + cubeWidth + ",0)")
+							"translate(" + cubeWidth + ",0)");
 					break;
 				case 1:
 					$('.text').fadeOut(function(){
@@ -341,16 +346,7 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
-					iconDollar(accent);
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',0)
-						.style('fill',accent);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',0);
+					iconShape(accent, iconDollar);
 					break;
 				case 4:
 					$('.text').fadeOut(function(){
@@ -558,7 +554,7 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});					
-					iconHouse(accent);
+					iconShape(accent, iconHouse);
 					break;
 				case 8:
 					$('.text').fadeOut(function(){
@@ -577,9 +573,6 @@ var bmoreHealthProfile = {
 					});
 					break;
 				case 9:
-					d3.select('.headline').selectAll('span')
-						.text('Built environment')
-						.style('color',accent);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -595,8 +588,11 @@ var bmoreHealthProfile = {
 						$('.text').fadeIn();
 					});
 					break;
-				case 10:				
+				case 10:
 					accent = oTeal;
+					d3.select('.headline').selectAll('span')
+						.text('Built environment')
+						.style('color',accent);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -650,7 +646,12 @@ var bmoreHealthProfile = {
 					dataLegendSVG.select('rect')
 						.transition()
 						.duration(1000)
+						.style('opacity',1)
 						.style('fill',accent);
+					dataLegendSVG.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
 					break;
 				case 11:
 					accent = oIndigo;
@@ -775,6 +776,12 @@ var bmoreHealthProfile = {
 						});
 					break;
 				case 13:
+					accent = oIndigo;
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.text('Educational environment')
+						.style('color',accent);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -828,6 +835,7 @@ var bmoreHealthProfile = {
 						});
 					break;
 				case 14:
+					accent = oRed;
 					d3.select('.headline').selectAll('span')
 						.transition()
 						.duration(200)
@@ -853,9 +861,230 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
-					icon911(accent);
+					iconShape(accent, icon911);
 					break;
-				case 99:
+				case 15:
+					$('.text').fadeOut(function(){
+						textWrap.selectAll('p')
+							.remove();
+						textWrap.append('p')
+							.html('It has the fifth highest rate of <span style="color:'+accent
+								+';">homicides</span> at <span style="color:'+accent
+								+';">8 killings per 10,000 residents</span>.')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('City overall: <span style="color:'+accent
+								+';">4 per 10,000 residents</span> ')
+							.attr('class','text__list');
+						$('.text').fadeIn();
+					});
+					break;
+				case 16:
+					accent = oRed;
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.text('Safety')
+						.style('color',accent);
+					$('.text').fadeOut(function(){
+						textWrap.selectAll('p')
+							.remove();
+						textWrap.append('p')
+							.html('The <span style="color:'+accent
+								+';">youth homicide rate</span> is the highest in the city at <span style="color:'+accent
+								+';">107 killings per 100,000 youth</span> (25 or younger).')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('City overall: <span style="color:'+accent
+								+';">31 per 100,000 residents</span> ')
+							.attr('class','text__list');
+						$('.text').fadeIn();
+					});
+					iconShape(accent, icon911);
+					break;
+				case 17:
+					accent = oPink;
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.style('opacity',0);
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.delay(200)
+						.text('Health')
+						.style('color',accent)
+						.style('opacity',1);
+					$('.text').fadeOut(function(){
+						textWrap.selectAll('p')
+							.remove();
+						textWrap.append('p')
+							.html('These factors contribute to the neighborhood\'s <span style="color:'+accent
+								+';">life expectancy rate</span> of <span style="color:'+accent
+								+';">66.9 years</span>, the lowest in the city.')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('City overall: <span style="color:'+accent
+								+';">73.6 years</span> ')
+							.attr('class','text__list');
+						$('.text').fadeIn();
+					});
+					iconShape(accent, iconHealth);
+					break;
+				case 18:
+					$('.text').fadeOut(function(){
+						textWrap.selectAll('p').remove();
+						textWrap.append('p')
+							.text('Top causes of death')
+							.style('color',accent)
+							.attr('class','text__header');
+						textWrap.append('p')
+							.html('Heart disease: <span style="color:'+oRed+';">21.6%</span>')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('Cancer: <span style="color:'+oPink+';">19.4%</span>')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('Homicide: <span style="color:'+oGrape+';">5.9%</span>')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('Stroke: <span style="color:'+oViolet+';">5.7%</span>')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('Drug and alcohol: <span style="color:'+oIndigo+';">5.6%</span>')
+							.attr('class','text__list');
+						$('.text').fadeIn();
+					});
+					cubesSVG.selectAll('rect')
+						.each(function(d,i){
+							d3.select(this)
+								.transition()
+								.duration(150)
+								.attr('transform','translate(0,0)');
+							if (i < 21) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.attr('transform',
+										"translate(" + ((i%10)*cubeWidth) + "," +
+										(Math.floor(i/10) * cubeWidth) + ")")
+									.attr('fill',oRed);
+							} else if (i==21) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.style('width',Math.floor(cubeWidth *.6))
+									.attr('fill',oRed)
+									.attr('transform',
+										"translate(" + ((i%10)*cubeWidth) + "," +
+										(Math.floor(i/10) * cubeWidth) + ")");
+								newRow = 8;
+							} else if (i < 41){
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.attr('fill',oPink)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+							} else if (i==41) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.style('width',Math.floor(cubeWidth *.4))
+									.attr('fill',oPink)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+								newRow = newRow;
+							} else if (i < 46){
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.attr('fill',oGrape)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+							} else if (i==46) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.style('width',Math.floor(cubeWidth *.9))
+									.attr('fill',oGrape)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+								newRow = newRow + 5;
+							} else if (i < 51){
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.attr('fill',oViolet)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+							} else if (i==51) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.style('width',Math.floor(cubeWidth *.7))
+									.attr('fill',oViolet)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+								newRow = newRow + 5;
+							} else if (i < 56){
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.attr('fill',oIndigo)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+							} else if (i==56) {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.delay(delay + 20*i)
+									.style('width',Math.floor(cubeWidth *.6))
+									.attr('fill',oIndigo)
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+								newRow = newRow + 5;
+							} else {
+								d3.select(this)
+									.transition()
+									.duration(150)
+									.attr('visibility','hidden')
+									.attr('transform',
+										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
+										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
+							}
+						});
+					dataLegendSVG.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',1)
+						.style('fill',accent)
+						.attr('visibility','visible');
+					dataLegendSVG.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.attr('visibility','visible');
+					break;
+				default:
+					toSlide = 19;
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p').remove();
 						textWrap.append('p')
@@ -873,7 +1102,6 @@ var bmoreHealthProfile = {
 							.attr('class','text__stat');
 						$('.text').fadeIn();
 					});
-					newRow = 0;
 					delay = 0;
 					cubesSVGRect = cubesSVG.selectAll('rect')
 						.each(function(d,i){
@@ -883,7 +1111,10 @@ var bmoreHealthProfile = {
 									.transition()
 									.duration(150)
 									.delay(delay + 20*i)
+									.style('width',cubeWidth - cubePadding)
+									.style('height',cubeWidth - cubePadding)
 									.attr('fill',gray)
+									.attr('visibility','visible')
 									.attr('transform',
 										"translate(" + i%10*cubeWidth + "," +
 										Math.floor(i/10)*cubeWidth + ")");
@@ -893,26 +1124,26 @@ var bmoreHealthProfile = {
 							}
 						});
 						dataLegendSVG.attr('visibility','hidden');
-					break;
-				default:
-					toSlide = 99;
+						dataLegendSVGAvg.attr('visibility','hidden');
 					break;
 			}
 			$('.icon-left-open').data('toslide',toSlide-1);
 			$('.icon-right-open').data('toslide',toSlide+1);
 
-			function iconHouse(color) {
-				var shapeArr = [32,33,34,35,36,37,41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,71,72,73,74,75,76,77,78,81,82,84,85,86,87,88,91,92,94,95,96,97,98];
+			function iconShape(color, array) {
 				var shapeCounter = 0;
 				cubesSVG.selectAll('rect')
 					.each(function(d,i){
-						if (shapeArr[shapeCounter] == i) {	
+						if (array[shapeCounter] == i) {	
 							shapeCounter++;				
 							d3.select(this)
 								.attr('stroke','none')
 								.transition()
 								.duration(150)
 								.delay(delay + 20*i)
+								.style('width',cubeWidth - cubePadding)
+								.style('height',cubeWidth - cubePadding)
+								.attr('visibility','visible')
 								.attr('fill',color)
 								.attr('stroke',white)
 								.attr('transform',
@@ -924,6 +1155,9 @@ var bmoreHealthProfile = {
 								.transition()
 								.duration(150)
 								.delay(delay + 20*i)
+								.style('width',cubeWidth - cubePadding)
+								.style('height',cubeWidth - cubePadding)
+								.attr('visibility','visible')
 								.attr('fill',gray)
 								.attr('stroke',white)
 								.attr('transform',
@@ -931,71 +1165,15 @@ var bmoreHealthProfile = {
 									((Math.floor(i/10)) * cubeWidth) + ")");
 						}
 					});
-			}
-			function iconDollar(color) {
-				var shapeArr = [13,16,23,24,25,26,32,37,42,53,54,55,56,67,72,77,83,84,85,86,93,96];
-				var shapeCounter = 0;
-				cubesSVG.selectAll('rect')
-					.each(function(d,i){
-						if (shapeArr[shapeCounter] == i) {	
-							shapeCounter++;				
-							d3.select(this)
-								.attr('stroke','none')
-								.transition()
-								.duration(150)
-								.delay(delay + 20*i)
-								.attr('fill',color)
-								.attr('stroke',white)
-								.attr('transform',
-									"translate(" + ((i%10)*cubeWidth) + "," +
-									((Math.floor(i/10)) * cubeWidth) + ")");
-						} else {					
-							d3.select(this)
-								.attr('stroke','none')
-								.transition()
-								.duration(150)
-								.delay(delay + 20*i)
-								.attr('fill',gray)
-								.attr('stroke',white)
-								.attr('transform',
-									"translate(" + ((i%10)*cubeWidth) + "," +
-									((Math.floor(i/10)) * cubeWidth) + ")");
-						}
-					});
-			}
-			function icon911(color) {
-				var shapeArr = [51,52,53,56,59,61,63,65,66,68,69,71,72,73,76,79,83,86,89,91,92,96,99];
-				var shapeCounter = 0;
-				cubesSVG.selectAll('rect')
-					.each(function(d,i){
-						if (shapeArr[shapeCounter] == i) {	
-							shapeCounter++;				
-							d3.select(this)
-								.attr('stroke','none')
-								.transition()
-								.duration(150)
-								.delay(delay + 20*i)
-								.attr('fill',color)
-								.attr('stroke',white)
-								.attr('transform',
-									"translate(" + ((i%10)*cubeWidth) + "," +
-									((Math.floor(i/10)) * cubeWidth) + ")");
-						} else {					
-							d3.select(this)
-								.attr('stroke','none')
-								.transition()
-								.duration(150)
-								.delay(delay + 20*i)
-								.attr('fill',gray)
-								.attr('stroke',white)
-								.attr('transform',
-									"translate(" + ((i%10)*cubeWidth) + "," +
-									((Math.floor(i/10)) * cubeWidth) + ")");
-						}
-					});
-			}
-
-			
+				dataLegendSVG.select('rect')
+					.transition()
+					.duration(1000)
+					.style('opacity',0);
+				dataLegendSVG.select('text')
+					.transition()
+					.duration(1000)
+					.style('opacity',0);			
+			}			
 		});
 	},
 	otherTriggers: function(){
