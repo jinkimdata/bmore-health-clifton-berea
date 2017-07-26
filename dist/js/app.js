@@ -35,14 +35,15 @@ var bmoreHealthProfile = {
         var dataWidth = screenWidth / 2;
         var cubeWidth = dataWidth / 10;
         var cubePadding = cubeWidth / 10;
-        var dataHeight = 13 * cubeWidth;
+        var dataHeight = 10 * cubeWidth;
         var textWrap = d3.select(".text");
         var dataWrap = d3.select(".data").append("div").attr("class", "data__viz");
-        var cubesSVG = dataWrap.append("svg").style("width", dataWidth).style("height", dataHeight);
         var dataLegend = dataWrap.append("div").attr("class", "data__viz__legend");
+        var cubesSVG = dataWrap.append("svg").style("width", dataWidth).style("height", dataHeight);
         var dataLegendSVG, dataLegendSVGAvg;
         var toSlide;
         var delay = 0;
+        var accent;
         var darkgray = "#444444";
         var white = "#fffcf5";
         var lightgreen = "#C8E6C9";
@@ -65,11 +66,12 @@ var bmoreHealthProfile = {
                 break;
 
               case 0:
+                accent = darkgreen;
                 cubesSVG.selectAll("rect").remove();
                 dataLegend.selectAll("svg").remove();
                 $(".headline").addClass("active");
                 d3.select(".headline").selectAll("p").transition().duration(200).style("opacity", 0).remove();
-                d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0).style("color", darkgreen).text("Demographics");
+                d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0).style("color", accent).text("Demographics");
                 d3.select(".headline").selectAll("span").transition().duration(200).delay(200).style("opacity", 1);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
@@ -85,7 +87,7 @@ var bmoreHealthProfile = {
                     }
                 }
                 dataLegendSVG = dataLegend.append("svg").style("width", dataWidth).style("height", cubeWidth);
-                dataLegendSVG.append("rect").style("opacity", 0).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", darkgreen).transition();
+                dataLegendSVG.append("rect").style("opacity", 0).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", accent).transition();
                 dataLegendSVG.append("text").text("").style("opacity", 0).attr("alignment-baseline", "central").attr("dy", ".5em").attr("transform", "translate(" + cubeWidth + ",0)");
                 dataLegendSVGAvg = dataLegend.append("svg").style("width", dataWidth).style("height", cubeWidth);
                 dataLegendSVGAvg.append("rect").style("opacity", 0).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", darkgray).attr("class", "cube");
@@ -95,17 +97,17 @@ var bmoreHealthProfile = {
               case 1:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">95 percent</span> of the neighborhood\'s residents are <span style="color:' + darkgreen + ';">black</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + darkgreen + ';">63 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('<span style="color:' + accent + ';">95 percent</span> of the neighborhood\'s residents are <span style="color:' + accent + ';">black</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">63 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 63) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", darkgreen).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 95) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", darkgreen).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
                 dataLegendSVG.select("rect").transition().duration(1e3).style("opacity", 1);
@@ -115,400 +117,222 @@ var bmoreHealthProfile = {
                 break;
 
               case 2:
-                d3.select(".headline").selectAll("span").transition().duration(200).style("color", darkgreen).text("Demographics");
+                accent = darkgreen;
+                d3.select(".headline").selectAll("span").transition().duration(200).style("color", accent).text("Demographics");
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">83 percent</span> of the neighborhood\'s children live in <span style="color:' + darkgreen + ';">single-parent households</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + darkgreen + ';">65 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('<span style="color:' + accent + ';">83 percent</span> of the neighborhood\'s children live in <span style="color:' + accent + ';">single-parent households</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">65 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 65) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", darkgreen).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 83) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", darkgreen).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", darkgreen);
+                dataLegendSVG.select("rect").transition().duration(1e3).style("opacity", 1).style("fill", accent);
+                dataLegendSVG.select("text").transition().duration(1e3).style("opacity", 1);
                 break;
 
               case 3:
+                accent = oGrape;
                 d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0);
-                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Socioeconomic").style("color", oGrape).style("opacity", 1);
+                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Socioeconomic").style("color", accent).style("opacity", 1);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('Clifton-Berea has the 8th lowest <span style="color:' + oGrape + ';">median household income</span> in Baltimore at <span style="color:' + oGrape + ';">$25,738</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oGrape + ';">$47,819</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('Clifton-Berea has the 8th lowest <span style="color:' + accent + ';">median household income</span> in Baltimore at <span style="color:' + accent + ';">$25,738</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">$47,819</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", oGrape);
+                iconDollar(accent);
+                dataLegendSVG.select("rect").transition().duration(1e3).style("opacity", 0).style("fill", accent);
+                dataLegendSVG.select("text").transition().duration(1e3).style("opacity", 0);
                 break;
 
               case 4:
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + oGrape + ';">45 percent</span> of residents make <span style="color:' + oGrape + ';">under $25,000</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oGrape + ';">32 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('<span style="color:' + accent + ';">45 percent</span> of residents make <span style="color:' + accent + ';">under $25,000</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">32 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 32) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oGrape).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 45) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oGrape).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
+                dataLegendSVG.select("rect").transition().duration(1e3).style("opacity", 1).style("fill", accent);
+                dataLegendSVG.select("text").transition().duration(1e3).style("opacity", 1);
                 break;
 
               case 5:
-                d3.select(".headline").selectAll("span").style("color", oGrape).text("Socioeconomic");
+                accent = oGrape;
+                d3.select(".headline").selectAll("span").style("color", accent).text("Socioeconomic");
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + oGrape + ';">17 percent</span> of residents 16 or older are <span style="color:' + oGrape + ';">unemployed</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oGrape + ';">13 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('<span style="color:' + accent + ';">17 percent</span> of residents 16 or older are <span style="color:' + accent + ';">unemployed</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">13 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 13) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oGrape).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 17) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oGrape).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", oGrape);
+                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", accent);
                 break;
 
               case 6:
+                accent = oTeal;
                 d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0);
-                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Built environment").style("color", oTeal).style("opacity", 1);
+                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Built environment").style("color", accent).style("opacity", 1);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('The neigborhood consists of <span style="color:' + oTeal + ';">12 percent green space</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oTeal + ';">33 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('The neigborhood consists of <span style="color:' + accent + ';">12 percent green space</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">33 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 12) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oTeal).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 33) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", oTeal);
+                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", accent);
                 break;
 
               case 7:
-                d3.select(".headline").selectAll("span").text("Built environment").style("color", oTeal);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('It has one of the highest rates of <span style="color:' + oTeal + ';">rat complaints</span> at <span style="color:' + oTeal + ';">978 calls per 10,000 households</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oTeal + ';">409 per 10,000 households</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('It has one of the highest rates of <span style="color:' + accent + ';">rat complaints</span> at <span style="color:' + accent + ';">978 calls per 10,000 households</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">409 per 10,000 households</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", oTeal);
+                iconHouse(accent);
                 break;
 
               case 8:
-                d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0);
-                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Educational environment").style("color", oIndigo).style("opacity", 1);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('Clifton-Berea has the lowest percentage of third-graders rated <span style="color:' + oIndigo + ';">"proficient" or better in reading</span> at <span style="color:' + oIndigo + ';">35 percent</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oIndigo + ';">56 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('It has the third highest rate of <span style="color:' + accent + ';">lead paint violations</span> at <span style="color:' + accent + ';">49 per 10,000 households</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">10 per 10,000 households</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 35) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oIndigo).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    } else if (i < 56) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", oIndigo);
                 break;
 
               case 9:
+                d3.select(".headline").selectAll("span").text("Built environment").style("color", accent);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + oIndigo + ';">47 percent</span> of neighborhood high school students <span style="color:' + oIndigo + ';">missed 20 or more days of school</span>.').attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oIndigo + ';">39 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('It also has the second highest density of <span style="color:' + accent + ';">vacant buildings</span> at <span style="color:' + accent + ';">2,649 per 10,000 housing units</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">562 per 10,000 housing units</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
-                });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 39) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oIndigo).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    } else if (i < 47) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oIndigo).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    }
                 });
                 break;
 
               case 10:
+                accent = oTeal;
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + oIndigo + ';">8 percent</span> of neighborhood adults have a <span style="color:' + oIndigo + ";\">bachelor's degree or more</span>.").attr("class", "text__list");
-                    textWrap.append("p").html('City overall: <span style="color:' + oIndigo + ';">29 percent</span> ').attr("class", "text__list");
+                    textWrap.append("p").html('<span style="color:' + accent + ';">48 percent</span> of the neighborhood is covered by a food desert.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">13 percent</span> ').attr("class", "text__list");
+                    $(".text").fadeIn();
+                });
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (i < 13) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 48) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 100) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", accent);
+                break;
+
+              case 11:
+                accent = oIndigo;
+                d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0);
+                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Educational environment").style("color", accent).style("opacity", 1);
+                $(".text").fadeOut(function() {
+                    textWrap.selectAll("p").remove();
+                    textWrap.append("p").html('Clifton-Berea has the lowest percentage of third-graders rated <span style="color:' + accent + ';">"proficient" or better in reading</span> at <span style="color:' + accent + ';">35 percent</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">56 percent</span> ').attr("class", "text__list");
+                    $(".text").fadeIn();
+                });
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (i < 35) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 56) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 100) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+                dataLegendSVG.select("rect").transition().duration(1e3).style("fill", accent);
+                break;
+
+              case 12:
+                $(".text").fadeOut(function() {
+                    textWrap.selectAll("p").remove();
+                    textWrap.append("p").html('<span style="color:' + accent + ';">47 percent</span> of neighborhood high school students <span style="color:' + accent + ';">missed 20 or more days of school</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">39 percent</span> ').attr("class", "text__list");
+                    $(".text").fadeIn();
+                });
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (i < 39) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 47) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else if (i < 100) {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+                break;
+
+              case 13:
+                $(".text").fadeOut(function() {
+                    textWrap.selectAll("p").remove();
+                    textWrap.append("p").html('<span style="color:' + accent + ';">8 percent</span> of neighborhood adults have a <span style="color:' + accent + ";\">bachelor's degree or more</span>, the fourth lowest rate among neighborhoods.").attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">29 percent</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
                 cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 8) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", oIndigo).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", accent).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 29) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", darkgray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", darkgray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("stroke", white).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     }
                 });
                 break;
 
-              case 91:
+              case 14:
+                d3.select(".headline").selectAll("span").transition().duration(200).style("opacity", 0);
+                d3.select(".headline").selectAll("span").transition().duration(200).delay(200).text("Safety").style("color", accent).style("opacity", 1);
                 $(".text").fadeOut(function() {
                     textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('The neighborhood has the lowest <span style="color:' + orange + ';">life expectancy</span> of any Baltimore neighborhood at <span style="color:' + orange + ';">66.9 years</span>.').attr("class", "text__stat");
-                    textWrap.append("p").html("The city average is  almost seven years higher at 73.6 years.").attr("class", "text__stat");
+                    textWrap.append("p").html('Clifton-Berea has the third highest rate of <span style="color:' + accent + ';">non-fatal shootings</span> at <span style="color:' + accent + ';">20 shootings per 10,000 residents</span>.').attr("class", "text__list");
+                    textWrap.append("p").html('City overall: <span style="color:' + accent + ';">7 per 10,000 residents</span> ').attr("class", "text__list");
                     $(".text").fadeIn();
                 });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", lightgreen).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                    }
-                });
-                break;
-
-              case 92:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").text("Top causes of death").attr("class", "text__header");
-                    textWrap.append("p").html('Heart disease: <span style="color:' + oRed + ';">21.6%</span>').attr("class", "text__list");
-                    textWrap.append("p").html('Cancer: <span style="color:' + oPink + ';">19.4%</span>').attr("class", "text__list");
-                    textWrap.append("p").html('Homicide: <span style="color:' + oGrape + ';">5.9%</span>').attr("class", "text__list");
-                    textWrap.append("p").html('Stroke: <span style="color:' + oViolet + ';">5.7%</span>').attr("class", "text__list");
-                    textWrap.append("p").html('Drug and alcohol: <span style="color:' + oIndigo + ';">5.6%</span>').attr("class", "text__list");
-                    $(".text").fadeIn();
-                });
-                delay = 300;
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    d3.select(this).transition().duration(150).attr("transform", "translate(0,0)");
-                    if (i < 21) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")").attr("fill", oRed);
-                    } else if (i == 21) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", oRed).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                        newRow = 8;
-                    } else if (i < 41) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("fill", oPink).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 41) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", oPink).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow;
-                    } else if (i < 46) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("fill", oGrape).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 46) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .9)).attr("fill", oGrape).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else if (i < 51) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("fill", oViolet).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 51) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .7)).attr("fill", oViolet).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else if (i < 56) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("fill", oIndigo).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 56) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", oIndigo).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else {
-                        d3.select(this).transition().duration(150).attr("visibility", "hidden").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    }
-                });
-                dataLegendSVG.select("text").text("= 1 percent");
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", oRed);
-                break;
-
-              case 93:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('Clifton-Berea has the <span style="color:' + oGrape + ';">fifth highest</span> homicide rate among 55 Baltimore neighborhoods at <span style="color:' + oGrape + ';">7.9 homicides</span> per 10,000 residents.').attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 40;
-                delay = 0;
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 42 || i > 46) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).attr("fill", gray);
-                    }
-                });
-                dataLegendSVG.select("text").text("= 1 percent");
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", oGrape);
-                break;
-
-              case 94:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('It also has the <span style="color:' + oGrape + ';">highest youth homicide rate</span> at <span style="color:' + oGrape + ';">10.7 homicides</span> per 10,000 residents aged 25 or under.').attr("class", "text__stat");
-                    textWrap.append("p").html("Even among overall homicides, only one other neighborhood, Midway/Coldstream, exceeds Clifton-Berea's youth homicide rate.").attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 21) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")").attr("fill", gray);
-                    } else if (i == 21) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", gray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
-                        newRow = 8;
-                    } else if (i < 41) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 41) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow;
-                    } else if (i < 46) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", oGrape).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 46) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .9)).attr("fill", oGrape).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else if (i < 51) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 51) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .7)).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else if (i < 56) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    } else if (i == 56) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        newRow = newRow + 5;
-                    } else {
-                        d3.select(this).transition().duration(150).style("width", cubeWidth - cubePadding).attr("visibility", "hidden").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", oGrape);
-                break;
-
-              case 95:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html("In addition to the public health issues, the neighborhood also has the <span>eighth lowest</span> median household income at <span>$25,738</span>.").attr("class", "text__stat");
-                    textWrap.append("p").html('<span style="color:' + orange + ';">44.8%</span> of Clifton-Berea households make <span style="color:' + orange + ';"> under $25,000</span>.').attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 0;
-                delay = 300;
-                cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    d3.select(this).transition().duration(150).attr("transform", "translate(0,0)");
-                    if (i < 45) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 44) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .8)).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 5;
-                        }
-                    } else if (i < 101) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 100) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .2)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", orange);
-                break;
-
-              case 96:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + orange + ';">17.4%</span> of the area\'s residents 16 or older are <span style="color:' + orange + ';">unemployed</span>.').attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 0;
-                delay = 0;
-                cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 18) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 17) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", orange).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 2;
-                        }
-                    } else if (i < 101) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 100) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", orange);
-                dataLegendSVG.select("text").text("= 1 percent");
-                break;
-
-              case 97:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('Among the neighborhoods 5,776 adults 25 or older, <span style="color:' + darkgreen + ';">63.3%</span> have a <span style="color:' + darkgreen + ';">high school diploma</span>.').attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 0;
-                delay = 300;
-                cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    d3.select(this).transition().duration(150).attr("transform", "translate(0,0)");
-                    if (i < 37) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 36) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .6)).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 3;
-                        }
-                    } else if (i < 59) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 58) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
-                    } else {
-                        d3.select(this).transition().duration(150).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "hidden");
-                    }
-                });
-                dataLegendSVG.select("rect").transition().duration(500).style("fill", darkgreen);
-                dataLegendSVG.select("text").text("= 100 people");
-                break;
-
-              case 98:
-                $(".text").fadeOut(function() {
-                    textWrap.selectAll("p").remove();
-                    textWrap.append("p").html('<span style="color:' + darkgreen + ';">7.7%</span> of adults 25 or older have a <span style="color:' + darkgreen + ";\">bachelor's degree or more</span>, the third lowest rate in the city.").attr("class", "text__stat");
-                    $(".text").fadeIn();
-                });
-                newRow = 0;
-                delay = 0;
-                cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
-                    if (i < 5) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 4) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .5)).attr("fill", darkgreen).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                            newRow = 5;
-                        }
-                    } else if (i < 59) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        if (i == 58) {
-                            d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", Math.floor(cubeWidth * .4)).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + (i + newRow) % 10 * cubeWidth + "," + Math.floor((i + newRow) / 10) * cubeWidth + ")");
-                        }
-                    } else {
-                        d3.select(this).transition().duration(150).style("width", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "hidden");
-                    }
-                });
-                dataLegendSVG.attr("visibility", "visible");
-                dataLegendSVG.select("text").text("= 100 people");
+                icon911(accent);
                 break;
 
               case 99:
@@ -525,7 +349,7 @@ var bmoreHealthProfile = {
                 delay = 0;
                 cubesSVGRect = cubesSVG.selectAll("rect").each(function(d, i) {
                     if (i < 100) {
-                        d3.select(this).transition().duration(150).delay(delay + 20 * i).style("width", cubeWidth - cubePadding).style("height", cubeWidth - cubePadding).attr("fill", gray).attr("visibility", "visible").attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
                     } else {
                         d3.select(this).attr("visibility", "hidden");
                     }
@@ -534,11 +358,47 @@ var bmoreHealthProfile = {
                 break;
 
               default:
-                toSlide = 9;
+                toSlide = 99;
                 break;
             }
             $(".icon-left-open").data("toslide", toSlide - 1);
             $(".icon-right-open").data("toslide", toSlide + 1);
+            function iconHouse(color) {
+                var shapeArr = [ 32, 33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 71, 72, 73, 74, 75, 76, 77, 78, 81, 82, 84, 85, 86, 87, 88, 91, 92, 94, 95, 96, 97, 98 ];
+                var shapeCounter = 0;
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (shapeArr[shapeCounter] == i) {
+                        shapeCounter++;
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", color).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+            }
+            function iconDollar(color) {
+                var shapeArr = [ 13, 16, 23, 24, 25, 26, 32, 37, 42, 53, 54, 55, 56, 67, 72, 77, 83, 84, 85, 86, 93, 96 ];
+                var shapeCounter = 0;
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (shapeArr[shapeCounter] == i) {
+                        shapeCounter++;
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", color).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+            }
+            function icon911(color) {
+                var shapeArr = [ 51, 52, 53, 56, 59, 61, 63, 65, 66, 68, 69, 71, 72, 73, 76, 79, 83, 86, 89, 91, 92, 96, 99 ];
+                var shapeCounter = 0;
+                cubesSVG.selectAll("rect").each(function(d, i) {
+                    if (shapeArr[shapeCounter] == i) {
+                        shapeCounter++;
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", color).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    } else {
+                        d3.select(this).attr("stroke", "none").transition().duration(150).delay(delay + 20 * i).attr("fill", gray).attr("stroke", white).attr("transform", "translate(" + i % 10 * cubeWidth + "," + Math.floor(i / 10) * cubeWidth + ")");
+                    }
+                });
+            }
         });
     },
     otherTriggers: function() {
