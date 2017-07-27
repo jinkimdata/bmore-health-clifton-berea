@@ -60,22 +60,32 @@ var bmoreHealthProfile = {
 		var darkgray = '#444444';
 		var white = '#fffcf5';
 		var lightgreen = '#C8E6C9';
-		var darkgreen = '#388E3C';
 		var orange = '#FF9800';
 		var gray = '#A9A9A9';
 
-		var oRed = '#e03131';
-		var oPink = '#e64980';
-		var oGrape = '#ae3ec9';
 		var oViolet = '#7950f2';
-		var oIndigo = '#4c6ef5';
-		var oCyan = '#22b8cf';
 		var oTeal = '#12b886';
 
-		var iconHouse = [32,33,34,35,36,37,41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,71,72,73,74,75,76,77,78,81,82,84,85,86,87,88,91,92,94,95,96,97,98];
+		var oCyan = '#15aabf';
+		var darkgreen = '#388E3C';
+		var oGrape = '#ae3ec9';
+		var oIndigo = '#4c6ef5';
+		var oRed = '#e03131';
+		var oPink = '#e64980';
+
+		var iconMan = [3,4,5,6,13,14,15,16,23,24,25,26,33,34,35,36,44,45,52,53,54,55,56,57,63,64,65,66,73,74,75,76,83,84,85,86,93,96];
 		var iconDollar = [13,16,23,24,25,26,32,37,42,53,54,55,56,67,72,77,83,84,85,86,93,96];
+		var iconHouse = [26,32,33,34,35,36,37,41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,71,72,73,74,75,76,77,78,81,82,84,85,86,87,88,91,92,94,95,96,97,98];
+		var iconGrade = [31,32,40,43,47,50,53,57,60,61,62,63,65,66,67,68,69,70,73,77,80,83,87,90,93];
 		var icon911 = [51,52,53,56,59,61,63,65,66,68,69,71,72,73,76,79,83,86,89,91,92,96,99];
 		var iconHealth = [24,25,34,35,42,43,44,45,46,47,52,53,54,55,56,57,64,65,74,75];
+
+		var loop = false;
+		var shapeArray = [iconMan,iconDollar,iconHouse,iconGrade,icon911,iconHealth];
+		var colorArray = [oCyan,darkgreen,oGrape,oIndigo,oRed,oPink];
+		var iconNum = 0;
+		var numIcons = shapeArray.length;
+
 
 		$('.slideBtn').on('click',function(){
 			toSlide = $(this).data('toslide');
@@ -84,7 +94,7 @@ var bmoreHealthProfile = {
 					toSlide = 0;
 					break;
 				case 0:
-					accent = darkgreen;
+					accent = oCyan;
 					cubesSVG.selectAll('rect').remove();
 					dataLegend.selectAll('svg').remove();
 					$('.headline').addClass('active');
@@ -121,21 +131,17 @@ var bmoreHealthProfile = {
 						if (i < 100) {
 							cubesSVG.append('rect')
 								.attr('fill',gray)
-								.transition()
-								.duration(50)
-								.delay(delay + 20*i)
 								.style('width',cubeWidth - cubePadding)
 								.style('height',cubeWidth - cubePadding)
 								.attr('class','cube')
 								.attr('fill',gray)
+								.attr('visibility','hidden')
 								.attr('transform',
 									"translate(" + ((i%10)*cubeWidth) + "," +
 									(Math.floor(i/10) * cubeWidth) + ")");
 						} else {
 							cubesSVG.append('rect')
 								.attr('fill',gray)
-								.transition()
-								.duration(50)
 								.style('width',cubeWidth - cubePadding)
 								.style('height',cubeWidth - cubePadding)
 								.attr('class','cube')
@@ -146,6 +152,7 @@ var bmoreHealthProfile = {
 									(Math.floor(i/10) * cubeWidth) + ")");
 						}
 					}
+
 					dataLegendSVG = dataLegend.append('svg')
 						.style('width', dataWidth)
 						.style('height',cubeWidth);
@@ -153,8 +160,7 @@ var bmoreHealthProfile = {
 						.style('opacity',0)
 						.style('width',cubeWidth - cubePadding)
 						.style('height',cubeWidth - cubePadding)
-						.attr('fill',accent)
-						.transition();
+						.attr('fill',accent);
 					dataLegendSVG.append('text')
 						.text('')
 						.style('opacity',0)
@@ -179,6 +185,8 @@ var bmoreHealthProfile = {
 						.attr('dy','.5em')
 						.attr('transform',
 							"translate(" + cubeWidth + ",0)");
+
+					iconShape(accent, iconMan);
 					break;
 				case 1:
 					$('.text').fadeOut(function(){
@@ -252,7 +260,7 @@ var bmoreHealthProfile = {
 						.style('opacity',1);
 					break;
 				case 2:
-					accent = darkgreen;
+					accent = oCyan;
 					d3.select('.headline').selectAll('span')
 						.transition()
 						.duration(200)
@@ -318,9 +326,17 @@ var bmoreHealthProfile = {
 						.transition()
 						.duration(1000)
 						.style('opacity',1);
+					dataLegendSVGAvg.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
 					break;
 				case 3:
-					accent = oGrape;
+					accent = darkgreen;
 					d3.select('.headline').selectAll('span')
 						.transition()
 						.duration(200)
@@ -409,9 +425,17 @@ var bmoreHealthProfile = {
 						.transition()
 						.duration(1000)
 						.style('opacity',1);
+					dataLegendSVGAvg.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
 					break;
 				case 5:
-					accent = oGrape;
+					accent = darkgreen;
 					d3.select('.headline').selectAll('span')
 						.style('color',accent)
 						.text('Socioeconomic');
@@ -472,7 +496,7 @@ var bmoreHealthProfile = {
 						.style('fill',accent);
 					break;
 				case 6:
-					accent = oTeal;
+					accent = oGrape;
 					d3.select('.headline').selectAll('span')
 						.transition()
 						.duration(200)
@@ -571,6 +595,7 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
+					iconShape(accent, iconHouse);
 					break;
 				case 9:
 					$('.text').fadeOut(function(){
@@ -587,9 +612,10 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
+					iconShape(accent, iconHouse);
 					break;
 				case 10:
-					accent = oTeal;
+					accent = oGrape;
 					d3.select('.headline').selectAll('span')
 						.text('Built environment')
 						.style('color',accent);
@@ -649,6 +675,14 @@ var bmoreHealthProfile = {
 						.style('opacity',1)
 						.style('fill',accent);
 					dataLegendSVG.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.select('text')
 						.transition()
 						.duration(1000)
 						.style('opacity',1);
@@ -878,6 +912,7 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
+					iconShape(accent, icon911);
 					break;
 				case 16:
 					accent = oRed;
@@ -960,6 +995,7 @@ var bmoreHealthProfile = {
 							d3.select(this)
 								.transition()
 								.duration(150)
+								.attr('stroke',white)
 								.attr('transform','translate(0,0)');
 							if (i < 21) {
 								d3.select(this)
@@ -1071,20 +1107,126 @@ var bmoreHealthProfile = {
 										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
 							}
 						});
+
 					dataLegendSVG.select('rect')
 						.transition()
 						.duration(1000)
 						.style('opacity',1)
-						.style('fill',accent)
-						.attr('visibility','visible');
+						.style('fill',accent);
 					dataLegendSVG.select('text')
 						.transition()
 						.duration(1000)
 						.style('opacity',1);
-					dataLegendSVGAvg.attr('visibility','visible');
+					dataLegendSVGAvg.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					dataLegendSVGAvg.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',1);
+					break;
+				case 19:
+					loop = false;
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.text('Health')
+						.style('color',accent)
+						.style('opacity',1);
+					$('.text').fadeOut(function(){
+						textWrap.selectAll('p')
+							.remove();
+						textWrap.append('p')
+							.html('<span style="color:'+accent
+								+';">42 percent</span> of live births are to <span style="color:'+accent
+								+';">mothers with BMI over 30</span>, the highest rate in Baltimore.')
+							.attr('class','text__list');
+						textWrap.append('p')
+							.html('City overall: <span style="color:'+accent
+								+';">10 percent</span> ')
+							.attr('class','text__list');
+						$('.text').fadeIn();
+					});
+					setTimeout(function(){
+						cubesSVG.selectAll('rect')
+							.each(function(d,i){
+								if (i < 10) {
+									d3.select(this)
+										.attr('stroke','none')
+										.transition()
+										.duration(150)
+										.delay(delay + 20*i)
+										.style('width',cubeWidth - cubePadding)
+										.style('height',cubeWidth - cubePadding)
+										.attr('fill',accent)
+										.attr('stroke',darkgray)
+										.attr('visibility','visible')
+										.attr('transform',
+											"translate(" + ((i%10)*cubeWidth) + "," +
+											((Math.floor(i/10)) * cubeWidth) + ")");
+								} else if (i < 42) {
+									d3.select(this)
+										.attr('stroke','none')
+										.transition()
+										.duration(150)
+										.delay(delay + 20*i)
+										.style('width',cubeWidth - cubePadding)
+										.style('height',cubeWidth - cubePadding)
+										.attr('fill',accent)
+										.attr('stroke',white)
+										.attr('visibility','visible')
+										.attr('transform',
+											"translate(" + ((i%10)*cubeWidth) + "," +
+											((Math.floor(i/10)) * cubeWidth) + ")");
+								} else if (i < 100) {
+									d3.select(this)
+										.attr('stroke','none')
+										.transition()
+										.duration(150)
+										.delay(delay + 20*i)
+										.style('width',cubeWidth - cubePadding)
+										.style('height',cubeWidth - cubePadding)
+										.attr('fill',gray)
+										.attr('stroke',white)
+										.attr('visibility','visible')
+										.attr('transform',
+											"translate(" + ((i%10)*cubeWidth) + "," +
+											((Math.floor(i/10)) * cubeWidth) + ")");
+								}
+							});
+						dataLegendSVG.select('rect')
+							.transition()
+							.duration(1000)
+							.style('opacity',1)
+							.style('fill',accent);
+						dataLegendSVG.select('text')
+							.transition()
+							.duration(1000)
+							.style('opacity',1);
+						dataLegendSVGAvg.select('rect')
+							.transition()
+							.duration(1000)
+							.style('opacity',1);
+						dataLegendSVGAvg.select('text')
+							.transition()
+							.duration(1000)
+							.style('opacity',1);
+					}, 1700);
 					break;
 				default:
-					toSlide = 19;
+					toSlide = 20;
+
+					loop = true;
+					iconNum = 0;
+					iconShape(colorArray[iconNum],shapeArray[iconNum++]);
+					shapeLooper();
+
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.style('opacity',0);					
+
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p').remove();
 						textWrap.append('p')
@@ -1103,28 +1245,23 @@ var bmoreHealthProfile = {
 						$('.text').fadeIn();
 					});
 					delay = 0;
-					cubesSVGRect = cubesSVG.selectAll('rect')
-						.each(function(d,i){
-							if (i < 100) {
-								d3.select(this)
-									.attr('stroke','none')
-									.transition()
-									.duration(150)
-									.delay(delay + 20*i)
-									.style('width',cubeWidth - cubePadding)
-									.style('height',cubeWidth - cubePadding)
-									.attr('fill',gray)
-									.attr('visibility','visible')
-									.attr('transform',
-										"translate(" + i%10*cubeWidth + "," +
-										Math.floor(i/10)*cubeWidth + ")");
-							} else {
-								d3.select(this)
-									.attr('visibility','hidden');
-							}
-						});
-						dataLegendSVG.attr('visibility','hidden');
-						dataLegendSVGAvg.attr('visibility','hidden');
+
+					dataLegendSVG.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',0);
+					dataLegendSVG.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',0);
+					dataLegendSVGAvg.select('rect')
+						.transition()
+						.duration(1000)
+						.style('opacity',0);
+					dataLegendSVGAvg.select('text')
+						.transition()
+						.duration(1000)
+						.style('opacity',0);
 					break;
 			}
 			$('.icon-left-open').data('toslide',toSlide-1);
@@ -1145,7 +1282,7 @@ var bmoreHealthProfile = {
 								.style('height',cubeWidth - cubePadding)
 								.attr('visibility','visible')
 								.attr('fill',color)
-								.attr('stroke',white)
+								.attr('stroke','none')
 								.attr('transform',
 									"translate(" + ((i%10)*cubeWidth) + "," +
 									((Math.floor(i/10)) * cubeWidth) + ")");
@@ -1172,8 +1309,27 @@ var bmoreHealthProfile = {
 				dataLegendSVG.select('text')
 					.transition()
 					.duration(1000)
-					.style('opacity',0);			
+					.style('opacity',0);
+				dataLegendSVGAvg.select('rect')
+					.transition()
+					.duration(1000)
+					.style('opacity',0);
+				dataLegendSVGAvg.select('text')
+					.transition()
+					.duration(1000)
+					.style('opacity',0);
 			}			
+			function shapeLooper() {
+				if (loop) {
+					setTimeout(function(){
+						iconShape(colorArray[iconNum],shapeArray[iconNum++])
+						if (iconNum == shapeArray.length) {
+							iconNum = 0;
+						}
+						shapeLooper();
+					}, 1700);
+				}
+			}
 		});
 	},
 	otherTriggers: function(){
