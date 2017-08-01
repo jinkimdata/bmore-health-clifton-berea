@@ -435,10 +435,7 @@ button {
       display: block; }
     @media (min-width: 600px) {
       .headline h1 {
-        font-size: 2.75em; } }
-    @media (min-width: 768px) {
-      .headline h1 {
-        font-size: 3em; } }
+        font-size: 2.5em; } }
   .headline p {
     line-height: 1.5em;
     font-size: 1.3em;
@@ -477,9 +474,11 @@ button {
     width: 100%;
     color: #757575;
     font-size: 2em; }
+    .data .navButtons i {
+      opacity: .5; }
     .data .navButtons i:hover {
-      color: #4CAF50;
-      cursor: pointer; }
+      cursor: pointer;
+      opacity: 1; }
     .data .navButtons .icon-right-open {
       float: right; }
   .data__viz {
@@ -579,7 +578,7 @@ button {
 
 .shareButtons {
   position: fixed;
-  top: 0;
+  bottom: 5px;
   right: 0;
   padding: .2em;
   color: #444;
@@ -587,7 +586,7 @@ button {
   .shareButtons i {
     cursor: pointer; }
     .shareButtons i:hover {
-      color: #FF9800; }
+      color: #daa520; }
 
 /* Leaderboard */
 #leaderboard {

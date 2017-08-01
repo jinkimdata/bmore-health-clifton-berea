@@ -2,20 +2,20 @@ var bmoreHealthProfile = {
 	init: function(){
 		bmoreHealthProfile.otherTriggers();
 		bmoreHealthProfile.dataViz();
-		// bmoreHealthProfile.share();
+		bmoreHealthProfile.share();
 	},
 	share: function(){
 		$(".icon-twitter-squared").on("click", function(){
-			var tweet = "Take the pulse of Baltimore's neighborhoods in this in-depth data dive."; //Tweet text
-			var url = "http://data.baltimoresun.com/news/neighborhood-health"; //Interactive URL
+			var tweet = "Explore Clifton-Berea in this in-depth data dive."; //Tweet text
+			var url = "http://data.baltimoresun.com/news/neighborhood-health/clifton-berea"; //Interactive URL
 			var twitter_url = "https://twitter.com/intent/tweet?text="+tweet+"&url="+url+"&tw_p=tweetbutton";
 			window.open(twitter_url, 'mywin','left=200,top=200,width=500,height=300,toolbar=1,resizable=0'); return false;
 		});
 		$(".icon-facebook-squared").on("click", function(){
-			var picture = "http://data.baltimoresun.com/news/neighborhood-health/images/thumb.jpg"; //Picture URL
+			var picture = "http://data.baltimoresun.com/news/neighborhood-health/clifton-berea/images/thumb.jpg"; //Picture URL
 			var title = "Baltimore Neighborhood Health 2016"; //Post title
-			var description = "Take the pulse of Baltimore's neighborhoods in this in-depth data dive."; //Post description
-			var url = "http://data.baltimoresun.com/news/neighborhood-health"; //Interactive URL
+			var description = "Explore Clifton-Berea in this in-depth data dive."; //Post description
+			var url = "http://data.baltimoresun.com/news/neighborhood-health/clifton-berea"; //Interactive URL
 	    	var facebook_url = "https://www.facebook.com/dialog/feed?display=popup&app_id=310302989040998&link="+url+"&picture="+picture+"&name="+title+"&description="+description+"&redirect_uri=http://www.facebook.com";    		
 			window.open(facebook_url, 'mywin','left=200,top=200,width=500,height=300,toolbar=1,resizable=0'); return false;
 		});
@@ -53,7 +53,6 @@ var bmoreHealthProfile = {
 		var dataLegendSVG, dataLegendSVGAvg;
 
 		var toSlide;
-		var delay = 0;
 
 		var accent;
 
@@ -85,7 +84,6 @@ var bmoreHealthProfile = {
 		var colorArray = [oCyan,darkgreen,oGrape,oIndigo,oRed,oPink];
 		var iconNum = 0;
 		var numIcons = shapeArray.length;
-
 
 		$('.slideBtn').on('click',function(){
 			toSlide = $(this).data('toslide');
@@ -162,7 +160,7 @@ var bmoreHealthProfile = {
 						.style('height',cubeWidth - cubePadding)
 						.attr('fill',accent);
 					dataLegendSVG.append('text')
-						.text('')
+						.text('= 1 percent')
 						.style('opacity',0)
 						.attr('alignment-baseline','central')
 						.attr('dy','.5em')
@@ -179,13 +177,14 @@ var bmoreHealthProfile = {
 						.attr('stroke',darkgray)
 						.attr('class','cube');
 					dataLegendSVGAvg.append('text')
-						.text('')
+						.text('= city overall')
 						.style('opacity',0)
 						.attr('alignment-baseline','central')
 						.attr('dy','.5em')
 						.attr('transform',
 							"translate(" + cubeWidth + ",0)");
 
+					updateColors();
 					iconShape(accent, iconMan);
 					break;
 				case 1:
@@ -210,7 +209,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -221,7 +220,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -232,40 +231,19 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
 										"translate(" + ((i%10)*cubeWidth) + "," +
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
-						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVG.select('text')
-						.text('= 1 percent')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('text')
-						.text('= city overall')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
+						});					fadeInLegend();
 					break;
 				case 2:
 					accent = oCyan;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('color',accent)
-						.text('Demographics');
+					updateColors();
+					updateHeadline('Demographics',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -287,7 +265,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -298,7 +276,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -309,7 +287,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -317,37 +295,12 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1)
-						.style('fill',accent);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
+					fadeInLegend();
 					break;
 				case 3:
 					accent = darkgreen;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('opacity',0);
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.delay(200)
-						.text('Socioeconomic')
-						.style('color',accent)
-						.style('opacity',1);
+					updateColors();
+					updateHeadline('Socioeconomic',true);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -386,7 +339,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -397,7 +350,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -408,7 +361,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -416,29 +369,12 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1)
-						.style('fill',accent);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
+					fadeInLegend();
 					break;
 				case 5:
 					accent = darkgreen;
-					d3.select('.headline').selectAll('span')
-						.style('color',accent)
-						.text('Socioeconomic');
+					updateColors();
+					updateHeadline('Socioeconomic',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -460,7 +396,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -471,7 +407,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -482,7 +418,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -490,24 +426,11 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('fill',accent);
 					break;
 				case 6:
 					accent = oGrape;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('opacity',0);
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.delay(200)
-						.text('Built environment')
-						.style('color',accent)
-						.style('opacity',1);
+					updateColors();
+					updateHeadline('Built environment',true);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -528,7 +451,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -539,7 +462,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -550,7 +473,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -558,10 +481,7 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('fill',accent);
+					fadeInLegend();
 					break;
 				case 7:
 					$('.text').fadeOut(function(){
@@ -616,9 +536,8 @@ var bmoreHealthProfile = {
 					break;
 				case 10:
 					accent = oGrape;
-					d3.select('.headline').selectAll('span')
-						.text('Built environment')
-						.style('color',accent);
+					updateColors();
+					updateHeadline('Educational environment',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -639,7 +558,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -650,7 +569,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -661,7 +580,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -669,37 +588,12 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1)
-						.style('fill',accent);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
+					fadeInLegend();
 					break;
 				case 11:
 					accent = oIndigo;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('opacity',0);
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.delay(200)
-						.text('Educational environment')
-						.style('color',accent)
-						.style('opacity',1);
+					updateColors();
+					updateHeadline('Educational environment',true);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -721,7 +615,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -732,7 +626,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -743,7 +637,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -751,10 +645,6 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('fill',accent);
 					break;
 				case 12:
 					$('.text').fadeOut(function(){
@@ -778,7 +668,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -789,7 +679,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',white)
 									.attr('transform',
@@ -800,7 +690,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -811,11 +701,8 @@ var bmoreHealthProfile = {
 					break;
 				case 13:
 					accent = oIndigo;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.text('Educational environment')
-						.style('color',accent);
+					updateColors();
+					updateHeadline('Educational environment',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -837,7 +724,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',accent)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -848,7 +735,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',darkgray)
 									.attr('transform',
@@ -859,7 +746,7 @@ var bmoreHealthProfile = {
 									.attr('stroke','none')
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',gray)
 									.attr('stroke',white)
 									.attr('transform',
@@ -867,20 +754,12 @@ var bmoreHealthProfile = {
 										((Math.floor(i/10)) * cubeWidth) + ")");
 							}
 						});
+					fadeInLegend();
 					break;
 				case 14:
 					accent = oRed;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('opacity',0);
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.delay(200)
-						.text('Safety')
-						.style('color',accent)
-						.style('opacity',1);
+					updateColors();
+					updateHeadline('Safety',true);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -916,11 +795,8 @@ var bmoreHealthProfile = {
 					break;
 				case 16:
 					accent = oRed;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.text('Safety')
-						.style('color',accent);
+					updateColors();
+					updateHeadline('Safety',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -939,17 +815,8 @@ var bmoreHealthProfile = {
 					break;
 				case 17:
 					accent = oPink;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.style('opacity',0);
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.delay(200)
-						.text('Health')
-						.style('color',accent)
-						.style('opacity',1);
+					updateColors();
+					updateHeadline('Health',true);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -993,15 +860,13 @@ var bmoreHealthProfile = {
 					cubesSVG.selectAll('rect')
 						.each(function(d,i){
 							d3.select(this)
-								.transition()
-								.duration(150)
 								.attr('stroke',white)
 								.attr('transform','translate(0,0)');
 							if (i < 21) {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('transform',
 										"translate(" + ((i%10)*cubeWidth) + "," +
 										(Math.floor(i/10) * cubeWidth) + ")")
@@ -1010,7 +875,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.style('width',Math.floor(cubeWidth *.6))
 									.attr('fill',oRed)
 									.attr('transform',
@@ -1021,7 +886,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',oPink)
 									.attr('transform',
 										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
@@ -1030,7 +895,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.style('width',Math.floor(cubeWidth *.4))
 									.attr('fill',oPink)
 									.attr('transform',
@@ -1041,7 +906,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',oGrape)
 									.attr('transform',
 										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
@@ -1050,7 +915,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.style('width',Math.floor(cubeWidth *.9))
 									.attr('fill',oGrape)
 									.attr('transform',
@@ -1061,7 +926,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',oViolet)
 									.attr('transform',
 										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
@@ -1070,7 +935,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.style('width',Math.floor(cubeWidth *.7))
 									.attr('fill',oViolet)
 									.attr('transform',
@@ -1081,7 +946,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.attr('fill',oIndigo)
 									.attr('transform',
 										"translate(" + (((i+newRow)%10)*cubeWidth) + "," +
@@ -1090,7 +955,7 @@ var bmoreHealthProfile = {
 								d3.select(this)
 									.transition()
 									.duration(150)
-									.delay(delay + 20*i)
+									.delay(20*i)
 									.style('width',Math.floor(cubeWidth *.6))
 									.attr('fill',oIndigo)
 									.attr('transform',
@@ -1107,33 +972,10 @@ var bmoreHealthProfile = {
 										((Math.floor((i+newRow)/10)) * cubeWidth) + ")");
 							}
 						});
-
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1)
-						.style('fill',accent);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
-					dataLegendSVGAvg.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',1);
+					fadeInLegend();
 					break;
 				case 19:
-					loop = false;
-					d3.select('.headline').selectAll('span')
-						.transition()
-						.duration(200)
-						.text('Health')
-						.style('color',accent)
-						.style('opacity',1);
+					updateHeadline('Health',false);
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p')
 							.remove();
@@ -1148,7 +990,17 @@ var bmoreHealthProfile = {
 							.attr('class','text__list');
 						$('.text').fadeIn();
 					});
-					setTimeout(function(){
+
+					if (loop) {
+						setTimeout(function(){
+							slideTimeout00();
+						}, 1700);
+					} else {
+						slideTimeout00();
+					}
+					loop = false;
+
+					function slideTimeout00() {
 						cubesSVG.selectAll('rect')
 							.each(function(d,i){
 								if (i < 10) {
@@ -1156,7 +1008,7 @@ var bmoreHealthProfile = {
 										.attr('stroke','none')
 										.transition()
 										.duration(150)
-										.delay(delay + 20*i)
+										.delay(20*i)
 										.style('width',cubeWidth - cubePadding)
 										.style('height',cubeWidth - cubePadding)
 										.attr('fill',accent)
@@ -1170,7 +1022,7 @@ var bmoreHealthProfile = {
 										.attr('stroke','none')
 										.transition()
 										.duration(150)
-										.delay(delay + 20*i)
+										.delay(20*i)
 										.style('width',cubeWidth - cubePadding)
 										.style('height',cubeWidth - cubePadding)
 										.attr('fill',accent)
@@ -1184,7 +1036,7 @@ var bmoreHealthProfile = {
 										.attr('stroke','none')
 										.transition()
 										.duration(150)
-										.delay(delay + 20*i)
+										.delay(20*i)
 										.style('width',cubeWidth - cubePadding)
 										.style('height',cubeWidth - cubePadding)
 										.attr('fill',gray)
@@ -1195,24 +1047,8 @@ var bmoreHealthProfile = {
 											((Math.floor(i/10)) * cubeWidth) + ")");
 								}
 							});
-						dataLegendSVG.select('rect')
-							.transition()
-							.duration(1000)
-							.style('opacity',1)
-							.style('fill',accent);
-						dataLegendSVG.select('text')
-							.transition()
-							.duration(1000)
-							.style('opacity',1);
-						dataLegendSVGAvg.select('rect')
-							.transition()
-							.duration(1000)
-							.style('opacity',1);
-						dataLegendSVGAvg.select('text')
-							.transition()
-							.duration(1000)
-							.style('opacity',1);
-					}, 1700);
+						fadeInLegend();
+					}
 					break;
 				default:
 					toSlide = 20;
@@ -1225,7 +1061,7 @@ var bmoreHealthProfile = {
 					d3.select('.headline').selectAll('span')
 						.transition()
 						.duration(200)
-						.style('opacity',0);					
+						.style('opacity',0);
 
 					$('.text').fadeOut(function(){
 						textWrap.selectAll('p').remove();
@@ -1244,29 +1080,57 @@ var bmoreHealthProfile = {
 							.attr('class','text__stat');
 						$('.text').fadeIn();
 					});
-					delay = 0;
-
-					dataLegendSVG.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',0);
-					dataLegendSVG.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',0);
-					dataLegendSVGAvg.select('rect')
-						.transition()
-						.duration(1000)
-						.style('opacity',0);
-					dataLegendSVGAvg.select('text')
-						.transition()
-						.duration(1000)
-						.style('opacity',0);
 					break;
 			}
 			$('.icon-left-open').data('toslide',toSlide-1);
 			$('.icon-right-open').data('toslide',toSlide+1);
 
+			function updateHeadline(headline,fade) {
+				if (fade) {
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.style('opacity',0);
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.text(headline)
+						.style('color',accent)
+						.style('opacity',1);
+				} else {
+					d3.select('.headline').selectAll('span')
+						.transition()
+						.duration(200)
+						.style('color',accent)
+						.text(headline);
+				}
+			}
+			function updateColors() {
+				$('.slideBtn').css('color',accent);
+				dataLegendSVG.select('rect')
+					.transition()
+					.duration(1000)
+					.style('fill',accent);
+			}
+			function fadeInLegend() {
+				dataLegendSVG.select('rect')
+					.transition()
+					.duration(1000)
+					.style('opacity',1)
+					.style('fill',accent);
+				dataLegendSVG.select('text')
+					.transition()
+					.duration(1000)
+					.style('opacity',1);
+				dataLegendSVGAvg.select('rect')
+					.transition()
+					.duration(1000)
+					.style('opacity',1);
+				dataLegendSVGAvg.select('text')
+					.transition()
+					.duration(1000)
+					.style('opacity',1);
+			}
 			function iconShape(color, array) {
 				var shapeCounter = 0;
 				cubesSVG.selectAll('rect')
@@ -1277,7 +1141,7 @@ var bmoreHealthProfile = {
 								.attr('stroke','none')
 								.transition()
 								.duration(150)
-								.delay(delay + 20*i)
+								.delay(20*i)
 								.style('width',cubeWidth - cubePadding)
 								.style('height',cubeWidth - cubePadding)
 								.attr('visibility','visible')
@@ -1291,7 +1155,7 @@ var bmoreHealthProfile = {
 								.attr('stroke','none')
 								.transition()
 								.duration(150)
-								.delay(delay + 20*i)
+								.delay(20*i)
 								.style('width',cubeWidth - cubePadding)
 								.style('height',cubeWidth - cubePadding)
 								.attr('visibility','visible')
@@ -1318,7 +1182,7 @@ var bmoreHealthProfile = {
 					.transition()
 					.duration(1000)
 					.style('opacity',0);
-			}			
+			}
 			function shapeLooper() {
 				if (loop) {
 					setTimeout(function(){
